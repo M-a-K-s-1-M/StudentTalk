@@ -1,0 +1,31 @@
+@use '../../../shared/ui/styles/buttons' as *;
+@use '../../../shared/ui/styles/modals' as *;
+
+.logout-container {
+    @include modal-container;
+    left: auto;
+    bottom: auto;
+    right: -170px;
+    bottom: 30px;
+
+
+    .title-logout {
+        @include modal-title;
+    }
+
+    .description-logout {
+        @include modal-description;
+    }
+
+    .btn-logout-wrapper {
+        @include modal-btn-wrapper;
+
+        .btn-yes {
+            @include button-yes;
+        }
+
+        .btn-no {
+            @include button-no;
+        }
+    }
+}

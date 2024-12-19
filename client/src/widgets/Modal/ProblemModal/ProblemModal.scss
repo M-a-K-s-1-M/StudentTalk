@@ -1,0 +1,28 @@
+@use '../../../shared/ui/styles/buttons' as *;
+@use '../../../shared/ui/styles/modals' as *;
+
+.problem-container {
+    @include modal-container;
+    bottom: 60px;
+    left: 120px;
+
+    .problem-title {
+        @include modal-title;
+    }
+
+    .problem-description {
+        @include modal-description;
+    }
+
+    .btn-problem-wrapper {
+        @include modal-btn-wrapper;
+
+        .btn-yes {
+            @include button-yes;
+        }
+
+        .btn-no {
+            @include button-no;
+        }
+    }
+}

@@ -1,0 +1,32 @@
+@mixin modal-container {
+    position: absolute;
+    z-index: 2;
+    bottom: 30px;
+    left: 50px;
+
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #E9E9E9;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0 5px 5px #00000040;
+    text-align: start;
+}
+
+@mixin modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+@mixin modal-description {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+@mixin modal-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

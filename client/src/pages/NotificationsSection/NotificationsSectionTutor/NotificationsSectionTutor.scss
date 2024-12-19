@@ -1,0 +1,252 @@
+@use '../../../shared/ui/styles/buttons' as *;
+
+.notifications-t {
+    box-sizing: border-box;
+    padding: 25px 30px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+
+
+    .ads-container {
+        box-sizing: border-box;
+        background-color: #EADCE8;
+        padding: 25px 35px;
+        border-radius: 10px;
+        margin-right: 20px;
+
+        .form-filter {
+            position: relative;
+            box-sizing: border-box;
+            background-color: #9A1D89;
+            color: #fff;
+            border-radius: 10px;
+            padding: 45px 40px;
+            padding-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 5%;
+            align-items: center;
+            gap: 3%;
+            margin-bottom: 15px;
+
+            .inputs-wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 3%;
+                justify-content: center;
+
+                .input-wrapper {
+                    text-align: center;
+
+                    label {
+                        box-sizing: border-box;
+                        display: block;
+                        font-family: 'Jura', sans-serif;
+                        font-size: 24px;
+                        font-weight: 400;
+                        margin-bottom: 5px;
+                    }
+
+                    .select {
+                        margin: 0 auto;
+                        max-width: 350px;
+                        min-width: 150px;
+                        font-size: 16px;
+                        color: #000;
+                        font-size: 14px;
+                    }
+
+                    .select.group,
+                    .select.educational-group {
+                        min-width: 190px;
+                    }
+
+                    .select.student,
+                    .select.teacher {
+                        min-width: 240px;
+                    }
+
+                    .select.direction {
+                        min-width: 280px;
+                    }
+                }
+            }
+
+
+            .btn-wrapper {
+                text-align: center;
+
+                .btn-search {
+                    width: 50px;
+                    background-color: #FFF;
+                    border: none;
+                    outline: none;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    border-radius: 50px;
+                    position: relative;
+                    top: 15px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    transition: all 500ms ease;
+
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+        }
+
+        .form-ad {
+            position: relative;
+
+            .theme-ad-container {
+                box-sizing: border-box;
+                margin-bottom: 15px;
+
+                .theme-ad-input {
+                    box-sizing: border-box;
+                    font-family: "Jura", sans-serif;
+                    font-size: 32px;
+                    font-weight: 400;
+                    background-color: #FFF;
+                    border-radius: 10px;
+                    padding: 10px 15px;
+                    border: none;
+                    outline: none;
+                    min-width: 100%;
+                }
+            }
+
+            .description-ad-container {
+
+                .description-ad-input {
+                    box-sizing: border-box;
+                    font-family: "Jura", sans-serif;
+                    font-size: 24px;
+                    line-height: 28px;
+                    font-weight: 400;
+                    background-color: #FFF;
+                    border-radius: 10px;
+                    padding: 10px 15px;
+                    padding-bottom: 100px;
+                    border: none;
+                    outline: none;
+                    min-width: 100%;
+                    height: 625px;
+                    resize: none;
+                    overflow-y: auto;
+                }
+            }
+
+            .btn-publish {
+                @include button-default;
+                box-sizing: border-box;
+                font-size: 24px;
+                line-height: 28px;
+                font-weight: 700;
+                padding: 12px 110px;
+                position: absolute;
+                right: 25px;
+                bottom: 30px;
+            }
+
+            .btn-publish.blocked {
+                pointer-events: none;
+                background-color: #B97CAF;
+            }
+
+        }
+    }
+
+    .student-list-wrapper {
+        box-sizing: border-box;
+        background-color: #EADCE8;
+        padding: 30px 20px;
+        border-radius: 10px;
+
+
+        .student-list-container {
+            box-sizing: border-box;
+            background-color: #FFF;
+            padding: 25px 20px;
+            border-radius: 10px;
+            height: 100%;
+            position: relative;
+
+            .title-container {
+                box-sizing: border-box;
+                display: grid;
+                grid-template-columns: 55% 25% 10%;
+                text-align: center;
+                margin-bottom: 30px;
+
+                .fio-title,
+                .group-title,
+                .mailing-title {
+                    font-weight: 700;
+                    font-size: 24px;
+                }
+            }
+
+            .form-student {
+                box-sizing: border-box;
+                height: 100%;
+                max-height: 720px;
+                overflow-y: auto;
+                border-radius: 10px;
+
+                .student-list {
+                    width: 100%;
+                    overflow-y: auto;
+
+                    .student-item {
+                        box-sizing: border-box;
+                        display: grid;
+                        font-size: 22px;
+                        grid-template-columns: 55% 25% 10%;
+                        text-align: center;
+                        margin-bottom: 20px;
+
+                        .mailing {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            .mailing-checkbox {
+                                @include button-checkbox;
+                            }
+                        }
+                    }
+                }
+
+                .checked-all-container {
+                    width: 100%;
+                    font-size: 22px;
+                    font-weight: 400;
+                    box-sizing: border-box;
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+                    gap: 10px;
+                    position: absolute;
+                    bottom: 10px;
+                    right: 100px;
+
+
+
+                    .checked-all-input {
+                        @include button-checkbox;
+
+                    }
+                }
+            }
+        }
+    }
+
+
+
+}

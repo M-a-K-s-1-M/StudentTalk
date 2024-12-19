@@ -1,0 +1,95 @@
+@use '../../../shared/ui/styles/buttons' as *;
+@use '../../../shared/ui/styles/links' as *;
+
+
+.profile-container-t {
+    box-sizing: border-box;
+    padding: 30px 0;
+
+    .profile {
+        box-sizing: border-box;
+        background-color: #EADCE8;
+        border-radius: 10px;
+        width: 630px;
+        margin: 0 auto;
+        text-align: center;
+
+        .form-title {
+            background-color: #9A1D89;
+            padding: 5px 70px;
+            color: #FFF;
+            font-size: 32px;
+            font-weight: 700;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .user-info-form {
+            input {
+                &:last-child {
+                    margin-bottom: 30px;
+                    ;
+                }
+            }
+        }
+
+
+        label,
+        input {
+            display: block;
+            margin: 0 auto;
+        }
+
+        label {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 3px;
+        }
+
+        input {
+            font-family: 'Jura', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            outline: none;
+            border: none;
+            padding: 10px 90px;
+            margin-bottom: 5px;
+            box-shadow: 0 7px 7px #00000040;
+            border-radius: 5px;
+
+            &:disabled {
+                box-shadow: none;
+                background-color: #EDEDED;
+            }
+        }
+
+        .btn-save,
+        .btn-change {
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .btn-save.disabled,
+        .btn-change.disabled {
+            @include button-profile-disabled;
+        }
+
+        .btn-save,
+        .btn-change {
+            @include button-default;
+        }
+
+        .logout-link-wrapper {
+            position: relative;
+
+            a {
+                @include link-default;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+        }
+
+    }
+}

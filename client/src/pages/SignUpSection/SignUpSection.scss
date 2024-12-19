@@ -1,0 +1,61 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.sign-up {
+    width: 540px;
+    align-items: center;
+    margin: 0 auto;
+
+    img {
+        position: relative;
+        content: '';
+        top: 55px;
+        z-index: 1;
+    }
+
+    .auth-form {
+        position: relative;
+        text-align: center;
+        z-index: 2;
+
+        input {
+            background: #D9D9D9;
+            width: 360px;
+            height: 40px;
+            margin-bottom: 7px;
+            border: none;
+            text-align: center;
+            outline-color: #371bb4;
+            border-radius: 5px;
+        }
+
+        select {
+            background: #D9D9D9;
+            width: 360px;
+            height: 40px;
+            margin-bottom: 7px;
+            border: none;
+            text-align: center;
+            outline-color: #371bb4;
+            border-radius: 5px;
+        }
+
+        .btn-auth {
+            @include button-auth;
+            margin-top: 45px;
+        }
+    }
+
+    p {
+        text-align: center;
+
+        .link {
+            transition: all 500ms ease;
+
+            &:hover {
+                cursor: pointer;
+                color: #C123AB;
+            }
+        }
+    }
+
+}

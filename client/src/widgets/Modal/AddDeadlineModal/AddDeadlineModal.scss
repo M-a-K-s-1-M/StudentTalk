@@ -1,0 +1,90 @@
+@use '../../../shared//ui/styles/buttons' as *;
+@use '../../../shared//ui/styles/backgrounds' as *;
+
+.bg-wrapper {
+    @include bg-wrapper;
+}
+
+.add-deadline-container {
+    box-sizing: border-box;
+    background-color: #EADCE8;
+    border-radius: 10px;
+    padding: 25px;
+    max-height: 930px;
+    position: relative;
+
+    .close-img {
+        @include button-close;
+    }
+
+    .form-container {
+
+        input,
+        textarea {
+            border: none;
+            outline: none;
+        }
+
+        .title-label,
+        .description-label {
+            display: block;
+            margin-bottom: 15px;
+
+            .title-input,
+            .description-input {
+                box-sizing: border-box;
+                padding: 10px 15px;
+                min-width: 780px;
+                font-family: 'Jura', sans-serif;
+                border-radius: 10px;
+            }
+
+            .title-input {
+                box-sizing: border-box;
+                font-size: 32px;
+                line-height: 37px;
+                font-weight: 400;
+            }
+
+            .description-input {
+                box-sizing: border-box;
+                resize: none;
+                min-height: 725px;
+                font-size: 24px;
+                line-height: 28px;
+                font-weight: 400;
+            }
+        }
+
+        .object-date-container {
+            display: flex;
+
+
+            .object-input,
+            .date-input {
+                box-sizing: border-box;
+                padding: 5px 7px;
+                font-family: 'Jura', sans-serif;
+                border-radius: 10px;
+                font-size: 18px;
+                line-height: 37px;
+                font-weight: 400;
+            }
+
+            .btn-confirm {
+                @include button-default;
+                margin: 0 auto;
+                font-size: 26px;
+                margin-bottom: 0;
+            }
+
+            .date-input {
+                margin-left: auto;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

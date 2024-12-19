@@ -1,0 +1,99 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.deadline-container {
+    padding: 25px 30px;
+    font-family: "Jura", sans-serif;
+    font-weight: 400;
+
+    .deadline {
+        padding: 25px 20px;
+        background-color: #EADCE8;
+        border-radius: 10px;
+        height: 930px;
+
+        /* Форма (дата, предмет) */
+
+        .deadline-form {
+            background-color: #9A1D89;
+            border-radius: 10px;
+            display: flex;
+            gap: 120px;
+            padding: 35px;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+
+            .input-group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                label {
+                    color: #fff;
+                }
+
+                input {
+                    border: none;
+                    outline: none;
+                    font-family: 'Jura', sans-serif;
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    font-size: 24px;
+                    font-weight: 400;
+                    line-height: 28px;
+                }
+            }
+        }
+
+        /* Список дедлайны */
+
+        .deadline-list {
+            color: #000;
+            border-radius: 10px;
+            max-height: 725px;
+            overflow-y: auto;
+            height: 645px;
+            margin-bottom: 15px;
+
+            .deadline-item {
+                display: grid;
+                grid-template-columns: 2fr 1fr auto;
+                padding: 25px 60px;
+                border-radius: 10px;
+                background-color: #FFF;
+                gap: 20px;
+                margin-bottom: 25px;
+                align-items: center;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .description,
+                .date,
+                .object {
+                    font-size: 54px;
+                    font-weight: 400;
+                    line-height: 75px;
+                }
+
+
+                .btn-more {
+                    @include button-default;
+                    max-height: 60px;
+                    font-weight: 700;
+                    font-size: 36px;
+                }
+            }
+        }
+
+        .btn-wrapper {
+            display: flex;
+            justify-content: right;
+
+            .btn-add {
+                @include button-default;
+                padding: 10px 60px;
+            }
+        }
+    }
+}

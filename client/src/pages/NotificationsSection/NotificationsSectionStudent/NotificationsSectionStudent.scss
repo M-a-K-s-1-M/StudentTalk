@@ -1,0 +1,160 @@
+@use '../../../shared/ui/styles/buttons' as *;
+
+.notifications {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    font-size: 20px;
+    position: relative;
+
+
+    /* Блок объявлений */
+
+    .block-ad {
+        background-color: #EADCE8;
+        border-radius: 10px;
+        padding: 25px 20px;
+        height: 930px;
+
+        .ad-list {
+            overflow: auto;
+            height: 930px;
+            border-radius: 10px;
+
+            .ad-item {
+                box-sizing: border-box;
+                // max-height: 200px;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 15px 20px;
+                margin-bottom: 25px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .title-container {
+                    box-sizing: border-box;
+                    display: flex;
+                    margin-bottom: 5px;
+
+                    h3 {
+                        font-weight: 700;
+                        font-size: 20px;
+                    }
+
+                    button {
+                        @include button-default
+                    }
+
+                }
+
+                .description-wrapper {
+                    height: 120px;
+                    overflow-y: hidden;
+
+                    .description {
+                        box-sizing: border-box;
+                        line-height: 24px;
+                    }
+                }
+
+                .description-wrapper.is-open {
+                    height: auto;
+                }
+            }
+        }
+    }
+
+
+
+    /* Блок обращений */
+
+    .block-requests {
+        background-color: #EADCE8;
+        border-radius: 10px;
+        padding: 25px 20px;
+        height: 930px;
+
+        .requests-list {
+            height: 850px;
+            overflow-y: auto;
+            margin-bottom: 25px;
+            border-radius: 10px;
+
+            .requests-item {
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 15px 20px;
+                margin-bottom: 25px;
+                position: relative;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .title-container {
+                    display: flex;
+                    margin-bottom: 5px;
+
+                    h3 {
+                        font-weight: 700;
+                        font-size: 20px;
+                        line-height: 42px;
+                    }
+
+                    .btn-status {
+                        color: #fff;
+                        padding: 5px 25px;
+                        font-size: 20px;
+                        line-height: 28px;
+                        font-family: 'Jura', sans-serif;
+                        border-radius: 10px;
+                        margin-left: auto;
+                        border: none;
+                    }
+
+                    .btn-status.resolve {
+                        background-color: #C123AB;
+                    }
+
+                    .btn-status.expected {
+                        background-color: #E87400;
+                    }
+
+                    .btn-status.decided {
+                        background-color: #13E800;
+                    }
+                }
+
+                .description {
+                    min-height: 120px;
+                    font-size: 20px;
+                    line-height: 24px;
+                }
+
+                .btn-wrapper {
+                    display: flex;
+
+                    .btn-deleted {
+                        @include button-delete;
+                    }
+
+                    .btn-chat {
+                        @include button-default;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn-wrapper {
+        display: flex;
+
+        .btn-question {
+            @include button-default;
+            padding: 10px 115px;
+        }
+    }
+}

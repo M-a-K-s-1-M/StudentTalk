@@ -1,0 +1,73 @@
+@use '../../../shared//ui/styles/buttons' as *;
+@use '../../../shared//ui/styles/backgrounds' as *;
+
+
+.bg-wrapper {
+    @include bg-wrapper;
+}
+
+.ask-container {
+    background-color: #EADCE8;
+    position: absolute;
+    box-sizing: border-box;
+
+    min-width: 830px;
+    min-height: 930px;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    z-index: 100;
+
+
+    .close-img {
+        @include button-close;
+    }
+
+    .ask-form {
+
+        .theme-question,
+        .description-question {
+            display: block;
+            border: none;
+            outline: none;
+            max-width: 780px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .theme-question {
+            box-sizing: border-box;
+            padding: 10px 15px;
+            font-family: 'Jura', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 37px;
+            margin-bottom: 15px;
+        }
+
+        .description-question {
+            box-sizing: border-box;
+            padding: 15px 15px;
+            font-family: 'Jura', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 28px;
+            height: 725px;
+            overflow-y: auto;
+            margin-bottom: 40px;
+            resize: none;
+        }
+
+        .btn-wrapper {
+            display: flex;
+
+            .btn-ask {
+                @include button-default;
+                padding: 10px 115px;
+            }
+        }
+
+    }
+
+}

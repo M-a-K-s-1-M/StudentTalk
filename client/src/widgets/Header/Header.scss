@@ -1,0 +1,101 @@
+.header {
+    box-sizing: border-box;
+    background-color: #B97CAF;
+    color: #fff;
+    display: flex;
+    column-gap: 60px;
+    height: 90px;
+    padding: 0 30px;
+
+    .main-logo {
+        position: absolute;
+        content: '';
+        top: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    }
+
+    nav {
+        display: flex;
+        width: 100%;
+
+        ul {
+            display: flex;
+            column-gap: 30px;
+            text-align: center;
+            padding-top: 30px;
+            margin-left: 400px;
+
+            li {
+                .link {
+                    color: #fff;
+                    padding: 5px 35px;
+                    border-radius: 10px;
+                    transition: all 500ms ease;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                .link.active {
+                    transition: all 500ms ease;
+                    background-color: #fff;
+                    color: #C123AB;
+                }
+            }
+        }
+
+        .btn-profile {
+            margin-left: auto;
+            align-self: center;
+            background-color: inherit;
+            border: none;
+            transition: all 500ms ease;
+            border-radius: 10px;
+            padding: 5px;
+
+            display: flex;
+            justify-content: center;
+            text-align: center;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+
+            .link-profile {
+                display: block;
+                margin-left: auto;
+                background-color: inherit;
+                border: none;
+                transition: all 500ms ease;
+                border-radius: 10px;
+                padding: 5px;
+
+                // background-image: url('/public/profile.png');
+                background-image: url('../../../public/profile.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                width: 50px;
+                height: 50px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .link-profile.active {
+                background-color: #FFF;
+                background-image: url('../../../public/profileActive.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+    }
+}

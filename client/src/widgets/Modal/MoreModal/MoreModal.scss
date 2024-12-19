@@ -1,0 +1,80 @@
+@use '../../../shared/ui/styles/buttons' as *;
+@use '../../../shared/ui/styles/backgrounds' as *;
+
+.bg-wrapper {
+    @include bg-wrapper;
+}
+
+.more-container {
+    background-color: #EADCE8;
+    position: absolute;
+    box-sizing: border-box;
+
+    top: 5%;
+    left: 35%;
+    width: 830px;
+    min-height: 930px;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    z-index: 100;
+
+    /* Кнопка закрыть окно */
+
+    .close-img {
+        @include button-close;
+    }
+
+    // -------
+
+    .title-deadline {
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 37px;
+        margin-bottom: 15px;
+    }
+
+    .description-deadline-container {
+        position: relative;
+        box-sizing: border-box;
+        background-color: #fff;
+        height: 780px;
+        padding: 15px;
+        padding-bottom: 40px;
+        border-radius: 10px;
+        text-overflow: clip;
+        overflow-y: auto;
+
+        margin-bottom: 15px;
+
+        .description {
+            font-size: 24px;
+            line-height: 28px;
+        }
+
+        .btn-delete {
+            @include button-delete;
+            position: absolute;
+            top: 745px;
+        }
+    }
+
+    .deadline-info {
+        display: flex;
+        justify-content: space-between;
+
+        .object,
+        .time {
+            font-size: 32px;
+            font-weight: 400;
+            padding: 10px 20px;
+            background-color: #FFF;
+            border-radius: 10px;
+        }
+    }
+
+}

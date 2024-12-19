@@ -1,0 +1,26 @@
+@use '../../../shared/ui/styles/buttons' as *;
+@use '../../../shared/ui/styles/modals' as *;
+
+.delete-container {
+    @include modal-container;
+
+    .title-delete {
+        @include modal-title;
+    }
+
+    .description-delete {
+        @include modal-description;
+    }
+
+    .btn-delete-wrapper {
+        @include modal-btn-wrapper;
+
+        .btn-yes {
+            @include button-yes;
+        }
+
+        .btn-no {
+            @include button-no;
+        }
+    }
+}

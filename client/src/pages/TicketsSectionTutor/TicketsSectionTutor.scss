@@ -1,0 +1,228 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.tickets-t {
+    box-sizing: border-box;
+    padding: 25px 30px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    height: 100%;
+
+    .tickets-container {
+        box-sizing: border-box;
+        padding: 25px 20px;
+        min-height: 100%;
+        background-color: #EADCE8;
+        border-radius: 10px;
+        margin-right: 30px;
+
+        .tickets-list {
+            // min-height: 100%;
+            box-sizing: border-box;
+            overflow-y: auto;
+            height: 915px;
+            border-radius: 10px;
+
+            .ticket-item {
+                box-sizing: border-box;
+                padding: 25px 20px;
+                background-color: #FFF;
+                border-radius: 10px;
+                display: grid;
+                grid-template-columns: 75% 20%;
+                gap: 5%;
+                margin-bottom: 15px;
+
+                &:last-child {
+                    margin: 0;
+                }
+
+                .info-ticket-wrapper {
+                    .title {
+                        font-size: 22px;
+                        font-weight: 700;
+                        line-height: 24px;
+                        margin-bottom: 7px;
+                    }
+
+                    .description {
+                        font-size: 22px;
+                        font-weight: 400;
+                        line-height: 24px;
+                    }
+                }
+
+                .info-student-wrapper {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .info-student {
+
+
+                        .student,
+                        .group {
+                            font-size: 20px;
+                            line-height: 22px;
+                            font-weight: 400;
+                        }
+
+                        .student {
+                            box-sizing: border-box;
+                            margin-bottom: 7px;
+                        }
+                    }
+
+                    .btn-take-ticket {
+                        @include button-default;
+                        font-size: 24px;
+                        font-weight: 700;
+                        padding: 5px 15px;
+                        margin: 0
+                    }
+                }
+            }
+        }
+    }
+
+    .chats-container {
+        background-color: #EADCE8;
+        box-sizing: border-box;
+        border-radius: 10px;
+
+        .btn-wrapper {
+            display: grid;
+            grid-template-columns: 50% 50%;
+
+            .btn-resolve,
+            .btn-decided {
+                color: #FFF;
+                box-sizing: border-box;
+                display: block;
+                border: none;
+                outline: none;
+                font-size: 36px;
+                font-weight: 700;
+                padding: 30px 40px;
+                font-family: 'Jura', sans-serif;
+                border-radius: 10px;
+                transition: all 500ms ease;
+                opacity: 0.7;
+
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.5;
+                }
+            }
+
+            .btn-resolve {
+                background-color: #C123AB7D;
+            }
+
+            .btn-resolve.active {
+                opacity: 1;
+                background-color: #C123AB;
+            }
+
+            .btn-decided {
+                background-color: #13E8007D;
+            }
+
+            .btn-decided.active {
+                opacity: 1;
+                background-color: #13E800;
+            }
+        }
+
+        .chats-list-wrapper {
+            box-sizing: border-box;
+            padding: 40px 30px;
+            border-radius: 10px;
+
+            .chats-list {
+                box-sizing: border-box;
+                border-radius: 10px;
+                height: 800px;
+                overflow-y: auto;
+
+                .chat-item {
+                    background-color: #FFF;
+                    box-sizing: border-box;
+                    border-radius: 10px;
+                    padding: 10px 15px;
+                    display: grid;
+                    grid-template-columns: 75% 20%;
+                    gap: 5%;
+                    margin-bottom: 15px;
+
+                    &:last-child {
+                        margin: 0;
+                    }
+
+                    .info-chat-wrapper {
+                        box-sizing: border-box;
+
+                        .title,
+                        .description {
+                            font-size: 22px;
+                            line-height: 24px;
+                        }
+
+                        .title {
+                            font-weight: 700;
+                            margin-bottom: 5px;
+                        }
+                    }
+
+                    .status-chat-wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        row-gap: 7px;
+
+                        .status-chat.resolve,
+                        .status-chat.decided {
+                            border: none;
+                            outline: none;
+                            color: #FFF;
+                            padding: 5px 10px;
+                            font-family: 'Jura', sans-serif;
+                            border-radius: 10px;
+                            font-size: 22px;
+                            font-weight: 700;
+                        }
+
+                        .status-chat.resolve {
+                            background-color: #C123AB;
+                        }
+
+                        .status-chat.decided {
+                            background-color: #13E800;
+                        }
+
+                        .student,
+                        .group {
+                            font-size: 20px;
+                            line-height: 22px;
+                            font-weight: 400;
+                        }
+
+                        .student {
+                            margin-bottom: 5px;
+                        }
+
+                        .btn-chat {
+                            @include button-default;
+                            padding: 5px 15px;
+                            font-size: 22px;
+                            font-weight: 700;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

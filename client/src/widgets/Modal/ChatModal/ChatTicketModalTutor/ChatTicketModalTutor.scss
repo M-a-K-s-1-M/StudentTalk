@@ -1,0 +1,179 @@
+@use '../../../../shared//ui/styles/buttons' as *;
+@use '../../../../shared//ui/styles/links' as *;
+@use '../../../../shared//ui/styles/backgrounds' as *;
+
+.bg-wrapper {
+    @include bg-wrapper;
+}
+
+.chat-ticket-container-t {
+    background-color: #EADCE8;
+    position: relative;
+    box-sizing: border-box;
+    min-width: 830px;
+    padding: 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    z-index: -2;
+
+
+    .close-img {
+        @include button-close;
+    }
+
+    .status-color {
+        box-sizing: border-box;
+        position: absolute;
+        z-index: -1;
+        top: 10px;
+        right: 485px;
+
+        width: 330px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    .status-color.resolve {
+        background-color: #C123AB;
+    }
+
+    .status-color.decided {
+        background-color: #13E800;
+    }
+
+    .status-color.expected {
+        background-color: #FF8D1B;
+    }
+
+    .chat-wrapper {
+        box-sizing: border-box;
+        padding: 10px 0;
+        border-radius: 10px;
+        background-color: #fff;
+        margin-bottom: 10px;
+        min-height: 720px;
+
+        .chat {
+            max-height: 720px;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            overflow-y: auto;
+            color: #000000;
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 400;
+            padding: 5px 17px;
+            border-radius: 10px;
+
+            .message {
+                box-sizing: border-box;
+                border-radius: 10px;
+                margin-bottom: 30px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+
+                .description-container {
+                    box-sizing: border-box;
+                    max-width: 500px;
+                    background-color: #D9D9D9;
+                    border-radius: 10px;
+                    padding: 10px 10px;
+                    line-height: 24px;
+                    font-size: 20px;
+
+                    .title {
+                        font-size: 20px;
+                        margin-bottom: 5px;
+                    }
+
+                    .description,
+                    .title {
+                        text-align: left;
+                    }
+                }
+
+
+                .name {
+                    margin-bottom: 5px;
+                }
+            }
+
+
+            .message.tutor {
+                text-align: right;
+
+
+
+                .description-container {
+                    margin-left: auto;
+                    border-bottom-right-radius: 0;
+
+                    background-color: #EADCE8;
+
+                    // background-color: #B97CAF;
+                    // color: #fff;
+                }
+            }
+
+            .message.theme,
+            .message.student {
+                text-align: left;
+
+                .description-container {
+                    border-bottom-left-radius: 0;
+                }
+            }
+        }
+    }
+
+
+    .form-container {
+        box-sizing: border-box;
+
+        form {
+            position: relative;
+
+            textarea {
+                box-sizing: border-box;
+                font-family: 'Jura', serif;
+                width: 100%;
+                min-height: 100px;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 26px;
+                padding: 10px 10px;
+                padding-right: 120px;
+                border: none;
+                border-radius: 10px;
+                outline: none;
+                resize: none;
+            }
+
+            button {
+                @include button-submit;
+            }
+        }
+    }
+
+    .status-container {
+        display: flex;
+        justify-content: space-between;
+
+        a {
+            @include link-default;
+            font-size: 18px;
+            position: absolute;
+            bottom: 25px;
+        }
+    }
+
+    .status-continer.decided {
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+}
