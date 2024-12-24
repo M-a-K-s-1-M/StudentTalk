@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import DefaultPage from '../../pages/DefaultPage/DefaultPage';
 
@@ -12,6 +12,8 @@ import ProfileTutor from '../../pages/Profile/ProfileTutor/ProfileTutor';
 
 import StudentLayout from './StudentLayout';
 import TutorLayout from './TutorLayout';
+
+
 
 
 
@@ -38,6 +40,7 @@ export default function GeneralLayout() {
                     < Route path="profile" element={< ProfileTutor />} />
                 </Route>
             </>}
+            <Route path='*' element={<Navigate to='/main' replace />} />
 
         </Routes>
     )
