@@ -1,6 +1,7 @@
-const { DataTypes, DECIMAL } = require('sequelize');
+const { DataTypes, STRING } = require('sequelize');
 const sequelize = require('../db');
-const { TICK_CHAR } = require('sequelize/lib/utils');
+const studentController = require('../controllers/studentController');
+const tutorController = require('../controllers/tutorController');
 
 const Student = sequelize.define('student', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -10,7 +11,7 @@ const Student = sequelize.define('student', {
     lastname: { type: DataTypes.STRING },
     patronymic: { type: DataTypes.STRING },
     role: { type: DataTypes.STRING, defaultValue: "STUDENT" },
-    group: { type: DataTypes.STRING },
+    academGroup: { type: DataTypes.STRING },
     curs: { type: DataTypes.INTEGER }
 })
 
@@ -50,12 +51,22 @@ const Message = sequelize.define('message', {
 
 const Group = sequelize.define('group', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    title: { type: DataTypes.STRING },
+    academGroup: { type: DataTypes.STRING },
 })
 
 const Curs = sequelize.define('curs', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    title: { type: DataTypes.INTEGER }
+    numberCurs: { type: DataTypes.INTEGER }
+})
+
+const Ad = sequelize.define('ad', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING },
+})
+
+const StudentAd = sequelize.define('student_ad', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 })
 
 
@@ -92,6 +103,12 @@ Student.belongsTo(Group);
 Student.hasOne(Curs);
 Curs.belongsTo(Student);
 
+Student.hasMany(StudentAd);
+StudentAd.belongsTo(Student);
+
+StudentAd.hasOne(Student);
+Student.belongsTo(StudentAd);
+
 
 /// -----
 
@@ -100,6 +117,12 @@ Message.belongsTo(Chat);
 
 Message.hasOne(Chat);
 Chat.belongsTo(Message);
+
+Ad.hasOne(StudentAd);
+StudentAd.belongsTo(Ad);
+
+StudentAd.hasOne(Ad);
+Ad.belongsTo(StudentAd);
 
 /// -----
 
@@ -117,7 +140,11 @@ Chat.belongsTo(Tutor);
 Chat.hasOne(Tutor);
 Tutor.belongsTo(Chat);
 
+Tutor.hasMany(Ad);
+Ad.belongsTo(Tutor);
 
+Ad.hasOne(Tutor);
+Tutor.hasOne(Ad);
 
 
 
@@ -134,5 +161,7 @@ module.exports = {
     Message,
     Group,
     Curs,
+    Ad,
+    StudentAd,
 }
 

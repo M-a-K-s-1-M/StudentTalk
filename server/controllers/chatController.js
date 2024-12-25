@@ -1,4 +1,3 @@
-const { TimeoutError } = require('sequelize');
 const { Chat } = require('../models/models');
 
 class ChatController {
@@ -8,9 +7,6 @@ class ChatController {
 
         return res.json(chat);
     }
-
-    async update(req, res) {
-        const { tutorId } = req.body;
-
-    }
 }
+
+module.exports = new ChatController();
