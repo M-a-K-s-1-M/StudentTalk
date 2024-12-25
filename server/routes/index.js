@@ -7,6 +7,7 @@ const ticketRouter = require('./ticketRouter');
 const cursRouter = require('./cursRouter');
 const groupRouter = require('./groupRouter');
 const messageRouter = require('./messageRouter')
+const userRouter = require('./userRouter')
 
 
 router.use('/student', studentRouter);
@@ -16,6 +17,6 @@ router.use('/ticket', ticketRouter);
 router.use('/curs', cursRouter);
 router.use('/group', groupRouter);
 router.use('/message', messageRouter);
-
+router.use('/user', userRouter);
 
 module.exports = router;

@@ -13,15 +13,16 @@ import ProfileTutor from '../../pages/Profile/ProfileTutor/ProfileTutor';
 import StudentLayout from './StudentLayout';
 import TutorLayout from './TutorLayout';
 
+import { jwtDecode } from 'jwt-decode';
 
 
 
 
 export default function GeneralLayout() {
-    const role = 'student';
+    const user = jwtDecode(localStorage.getItem('token'));
     return (
         <Routes>
-            {role === 'student' && <>
+            {user.role === 'STUDENT' && <>
                 <Route path='/' element={<StudentLayout role='student' />}>
                     {/* Студентские маршруты */}
                     <Route index element={<DefaultPage />} />
@@ -31,7 +32,7 @@ export default function GeneralLayout() {
                 </Route>
             </>}
 
-            {role === 'tutor' && <>
+            {user.role === 'TUTOR' && <>
                 <Route path='/' element={<TutorLayout role='tutor' />}>
                     {/* Тьюторские маршруты */}
                     < Route index element={< DefaultPage />} />

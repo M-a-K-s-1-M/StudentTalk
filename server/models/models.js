@@ -1,18 +1,16 @@
-const { DataTypes, STRING } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
-const studentController = require('../controllers/studentController');
-const tutorController = require('../controllers/tutorController');
 
 const Student = sequelize.define('student', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    email: { type: DataTypes.STRING, unique: true },
-    password: { type: DataTypes.STRING },
     firstname: { type: DataTypes.STRING },
     lastname: { type: DataTypes.STRING },
     patronymic: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true },
+    password: { type: DataTypes.STRING },
     role: { type: DataTypes.STRING, defaultValue: "STUDENT" },
     academGroup: { type: DataTypes.STRING },
-    curs: { type: DataTypes.INTEGER }
+    numberCurs: { type: DataTypes.STRING }
 })
 
 const Tutor = sequelize.define('tutor', {

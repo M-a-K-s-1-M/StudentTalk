@@ -1,68 +1,73 @@
 import { useState } from "react";
-import Input from "../../shared/ui/Input";
 import { Link, useNavigate } from "react-router-dom";
 import './SignUpSection.scss'
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { useUserStore } from "../../app/Stores/useUserStore";
 
 export default function SignUpForm() {
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState('')
+    const { setStudent, setTutor } = useUserStore();
 
     const [inputInfo, setInputInfo] = useState({
+        firstname: '',
+        lastname: '',
+        patronymic: '',
         email: '',
         password: '',
         passwordRepeat: '',
-        group: '',
-        role: 'ROLE_USER'
+        academGroup: '',
+        role: 'STUDENT'
     });
 
     async function handleSubmit(evt) {
         evt.preventDefault();
 
-
-        const config = {
-            method: 'post',
-            url: 'http://localhost:8080/api/v1/auth/register',
-            data: {
-                email: inputInfo.email,
-                password: inputInfo.password,
-                role: inputInfo.role,
-                groupName: inputInfo.group,
-            }
+        if (inputInfo.password !== inputInfo.passwordRepeat) {
+            return alert('Пароли не совпадают');
         }
 
-        await axios(config)
-            .then(response => {
-                if (response.status === 200) {
-                    navigate('/signin')
-                }
-            })
-            .catch(error => {
-                console.error('Ошибка при регистрации:', error);
-                setErrorMessage('Произошла ошибка при регистрации. Попробуйте еще раз.');
-            })
+        if (inputInfo.role === 'STUDENT') {
+            const curs = inputInfo.academGroup[3];
 
-        // try {
-        //     const response = await axios.post('http://localhost:8080/api/v1/auth/register',
-        //         {
-        //             username: usernameCorrect,
-        //             email: inputInfo.email,
-        //             password: inputInfo.password,
-        //             role: inputInfo.role,
-        //             groupName: inputInfo.group,
-        //         });
-
-
-        //     if (response.status === 200) {
-        //         navigate('/signin');
-        //     } else {
-        //         throw new Error('Не удалось зарегистрироваться')
-        //     }
-        // } catch (error) {
-        //     console.error('Ошибка при регистрации:', error);
-        //     setErrorMessage('Произошла ошибка при регистрации. Попробуйте еще раз.');
-
-        // }
+            await axios.post('http://localhost:5000/api/student/registration',
+                {
+                    firstname: inputInfo.firstname,
+                    lastname: inputInfo.lastname,
+                    patronymic: inputInfo.patronymic,
+                    email: inputInfo.email,
+                    password: inputInfo.password,
+                    role: inputInfo.role,
+                    academGroup: inputInfo.academGroup,
+                    numberCurs: curs
+                })
+                .then(response => {
+                    localStorage.removeItem('token')
+                    localStorage.setItem('token', response.data.token);
+                    setStudent(jwtDecode(response.data.token));
+                    navigate('/')
+                }).catch(e => {
+                    console.log(e);
+                })
+        } else if (inputInfo.role === 'TUTOR') {
+            await axios.post('http://localhost:5000/api/tutor/registration',
+                {
+                    firstname: inputInfo.firstname,
+                    lastname: inputInfo.lastname,
+                    patronymic: inputInfo.patronymic,
+                    email: inputInfo.email,
+                    password: inputInfo.password,
+                    role: inputInfo.role,
+                })
+                .then(resposnse => {
+                    localStorage.removeItem('token')
+                    localStorage.setItem('token', resposnse.data.token);
+                    setTutor(jwtDecode(resposnse.data.token));
+                    navigate('/')
+                }).catch(e => {
+                    console.log(e);
+                })
+        }
     }
 
     return (
@@ -70,8 +75,59 @@ export default function SignUpForm() {
             <img src='../../../public/imageAuthorization.png' alt='' />
             <form className="auth-form" onSubmit={handleSubmit}>
 
+                <p>Имя</p>
+                <input
+                    type='text'
+                    id='firstname'
+                    name='firstname'
+                    autoComplete='off'
+                    value={inputInfo.firstname}
+                    onChange={(evt) => {
+                        setInputInfo(props => {
+                            return {
+                                ...props,
+                                firstname: evt.target.value
+                            }
+                        })
+                    }}
+                />
+
+                <p>Фамилия</p>
+                <input
+                    type='text'
+                    id='lastname'
+                    name='lastname'
+                    autoComplete='off'
+                    value={inputInfo.lastname}
+                    onChange={(evt) => {
+                        setInputInfo(props => {
+                            return {
+                                ...props,
+                                lastname: evt.target.value
+                            }
+                        })
+                    }}
+                />
+
+                <p>Отчество</p>
+                <input
+                    type='text'
+                    id='patronymic'
+                    name='patronymic'
+                    autoComplete='off'
+                    value={inputInfo.patronymic}
+                    onChange={(evt) => {
+                        setInputInfo(props => {
+                            return {
+                                ...props,
+                                patronymic: evt.target.value
+                            }
+                        })
+                    }}
+                />
+
                 <p>Email</p>
-                <Input
+                <input
                     type='text'
                     id='email'
                     name='email'
@@ -88,7 +144,7 @@ export default function SignUpForm() {
                 />
 
                 <p>Пароль</p>
-                <Input
+                <input
                     type='password'
                     id='password'
                     name='password'
@@ -105,7 +161,7 @@ export default function SignUpForm() {
                 />
 
                 <p>Потверждение пароля</p>
-                <Input
+                <input
                     type='password'
                     id='passwordRepeat'
                     name='passwordRepeat'
@@ -131,25 +187,25 @@ export default function SignUpForm() {
                             }
                         })
                     }}>
-                        <option aria-checked value='ROLE_USER'>Студент</option>
-                        <option value='ROLE_TUTOR_UNRECOGNIZED'>Тьютор</option>
+                        <option aria-checked value='STUDENT'>Студент</option>
+                        <option value='TUTOR'>Тьютор</option>
                     </select>
                 </label>
 
-                {inputInfo.role === 'ROLE_USER' &&
+                {inputInfo.role === 'STUDENT' &&
                     <>
                         <p>Академическая группа</p>
-                        <Input
+                        <input
                             type='text'
-                            id='group'
-                            name='group'
+                            id='academGroup'
+                            name='academGroup'
                             autoComplete='off'
-                            value={inputInfo.group}
+                            value={inputInfo.academGroup}
                             onChange={(evt) => {
                                 setInputInfo(props => {
                                     return {
                                         ...props,
-                                        group: evt.target.value
+                                        academGroup: evt.target.value
                                     }
                                 })
                             }}
@@ -157,11 +213,8 @@ export default function SignUpForm() {
                     </>
                 }
 
-                <button className="btn-auth" onClick={evt => { evt.preventDefault() }}>Регистрация</button>
+                <button className="btn-auth">Регистрация</button>
             </form>
-
-            {errorMessage && <p>{errorMessage}</p>}
-
 
             <p>У меня уже есть аккаунт <Link className='link' to='/'>Войти</Link></p>
         </section>

@@ -2,85 +2,41 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import './SignInSection.scss'
 import axios from 'axios';
-// import AuthService from '../../../services/AuthService';
+import { useUserStore } from '../../app/Stores/useUserStore';
+import { jwtDecode } from 'jwt-decode';
 
 
 export default function SignInForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { setStudent, setTutor } = useUserStore()
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        const config = {
-            method: 'post',
-            url: 'http://localhost:8080/api/v1/auth/signin',
-            withCredentials: true,
-            data: {
-                email: email,
-                password: password,
-            }
-        }
-
-        await axios(config)
+        await axios.post('http://localhost:5000/api/user/login',
+            {
+                email,
+                password
+            })
             .then(response => {
                 if (response.status === 200) {
-                    localStorage.setItem('token', response.data.token)
-
-                    // Добавить перемешение либо на /student, либо на /tutor
-                    navigate('/student');
+                    localStorage.removeItem('token')
+                    localStorage.setItem('token', response.data.token);
+                    const user = jwtDecode(response.data.token);
+                    if (user.role === 'STUDENT') {
+                        setStudent(user);
+                    } else if (user.role === 'TUTOR') {
+                        setTutor(user)
+                    }
+                    navigate('/main/notifications')
+                } else {
+                    console.log(response);
                 }
+            }).catch(e => {
+                console.log(e);
             })
-            .catch(async (error) => {
-                console.error('Ошибка: ', error);
-
-                const config = {
-                    method: 'post',
-                    url: 'http://localhost:8080/api/v1/auth/refresh-token',
-                    withCredentials: true,
-                }
-
-                await axios(config)
-                    .then(refreshResponse => {
-                        if (refreshResponse.data.token) {
-                            localStorage.setItem('token', refreshResponse.data.accessToken);
-                            console.log('токен обновлён')
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
-            })
-
-        // try {
-        //     const response = await axios.post('http://localhost:8080/api/v1/auth/signin', {
-        //         email,
-        //         password
-        //     },
-        //         {
-        //             withCredentials: true
-        //         });
-
-        //     if (response.status === 200) {
-        //         localStorage.setItem('token', response.data.token);
-
-        //         navigate('/main')
-
-        //     }
-        // } catch (error) {
-        //     console.error('Ошибка: ', error);
-
-        //     // Здесь можно дополнительно обработать ошибки и попробовать обновить токен
-        //     const refreshResponse = await axios.post('http://localhost:8080/api/v1/auth/refresh-token', {
-        //         withCredentials: true,
-        //     });
-
-        //     if (refreshResponse.data.token) {
-        //         localStorage.setItem('token', refreshResponse.data.accessToken);
-        //     }
-        //     console.log('токен обновлён')
-        // }
     }
 
     return (
@@ -97,7 +53,7 @@ export default function SignInForm() {
                         value={email}
                         onChange={(evt) => setEmail(evt.target.value)}
                         required
-                    ></input>
+                    />
                 </label><br />
 
                 <p>Пароль</p>
@@ -111,10 +67,10 @@ export default function SignInForm() {
                         onChange={(evt) => setPassword(evt.target.value)}
                         required
 
-                    ></input>
+                    />
                 </label><br />
 
-                <button className='btn-auth' onClick={evt => { evt.preventDefault() }}>Вход</button>
+                <button className='btn-auth' >Вход</button>
             </form>
 
             <p>У меня нет аккаунта <Link className='link' to='/signup'>Зарегистрироваться</Link></p>

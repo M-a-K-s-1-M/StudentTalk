@@ -2,13 +2,13 @@ const bcrypt = require('bcrypt');
 const { Student } = require('../models/models');
 const jwt = require('jsonwebtoken');
 
-const generateJWT = (id, firstname, lastname, patronymic, email, academGorup, role) => {
-    return jwt.sign({ id, firstname, lastname, patronymic, email, academGorup, role }, process.env.SECRET_KEY, { expiresIn: '24h' })
+const generateJWT = (id, firstname, lastname, patronymic, email, role, academGroup, numberCurs) => {
+    return jwt.sign({ id, firstname, lastname, patronymic, email, role, academGroup, numberCurs }, process.env.SECRET_KEY, { expiresIn: '24h' })
 }
 
 class StudentController {
     async registration(req, res) {
-        const { firstname, lastname, patronymic, email, password, role, academGroup } = req.body;
+        const { firstname, lastname, patronymic, email, password, role, academGroup, numberCurs } = req.body;
         if (!email || !password) {
             return res.json({ message: 'Некорректный email или пароль' })
         }
@@ -19,10 +19,10 @@ class StudentController {
         }
 
         const hashPassword = await bcrypt.hash(password, 5);
-        const student = await Student.create({ firstname, lastname, patronymic, email, password: hashPassword, role, academGroup })
+        const student = await Student.create({ firstname, lastname, patronymic, email, password: hashPassword, role, academGroup, numberCurs })
         //Дописать зависимые id, пример:  const basket = await Basket.create({ userId: user.id })
 
-        const token = generateJWT(student.id, student.firstname, student.lastname, student.patronymic, student.email, student.academGorup, student.role);
+        const token = generateJWT(student.id, student.firstname, student.lastname, student.patronymic, student.email, student.role, student.academGroup, student.numberCurs);
         return res.json({ token })
 
     }
@@ -41,7 +41,7 @@ class StudentController {
             return res.json({ message: 'Указан неверный пароль' })
         }
 
-        const token = generateJWT(student.id, student.firstname, student.lastname, student.patronymic, student.email, student.academGorup, student.role);
+        const token = generateJWT(student.id, student.firstname, student.lastname, student.patronymic, student.email, student.role, student.academGroup, student.numberCurs);
         return res.json({ token })
     }
 
