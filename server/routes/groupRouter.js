@@ -3,7 +3,7 @@ const router = new Router();
 const groupController = require('../controllers/groupContorller');
 
 router.post('/create', groupController.create);
-router.get('/getAll', groupController.getAll);
-router.get('/getOne', groupController.getOne);
+router.post('/getAll', groupController.getAll);
+router.post('/getOne', groupController.getOne);
 
 module.exports = router;

@@ -37,16 +37,16 @@ class DeadlineController {
     }
 
     async delete(req, res) {
-        const { deadlineId } = req.body;
+        const { studentId, deadlineId } = req.body;
 
         const deletedCount = await Deadline.destroy({
             where: { id: deadlineId }
         });
 
         if (deletedCount > 0) {
-            res.status(200).json({ message: "Дедлайн успешно удален" });
+            return await Deadline.findAll({ where: { studentId } })
         } else {
-            res.status(404).json({ message: "Дедлайн не найден" });
+            return res.status(404).json({ message: "Дедлайн не найден" });
         }
     }
 }

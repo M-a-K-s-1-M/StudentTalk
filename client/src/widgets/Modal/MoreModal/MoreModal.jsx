@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import DeleteModal from '../DeleteModal/DeleteModal';
 
 
-export default function MoreModal({ onClickClose }) {
+export default function MoreModal({ deadlineItem, onClickClose }) {
     const [isDelete, setIsDelete] = useState(false);
 
     return ReactDOM.createPortal(
@@ -12,27 +12,20 @@ export default function MoreModal({ onClickClose }) {
             <section className="more-container">
                 <img className='close-img' src='../../../../public/closeImage.png' width='50' onClick={onClickClose} />
                 <h3 className='title-deadline'>
-                    Лабораторная по Физике 12 апреля 13:30
+                    {deadlineItem.title}
                 </h3>
                 <div className='description-deadline-container'>
                     <p className='description'>
-                        Лабораторная по силе трения
-                        <br /><br />
-                        С собой:<br />
-                        Отчет<br />
-                        Конспект
-                        <br /><br />
-                        Р-333
-
+                        {deadlineItem.description}
                     </p>
 
                     <button className="btn-delete" onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
-                    {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='deadline' />}
+                    {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='deadline' deadlineItem={deadlineItem} onClickMoreModal={onClickClose} />}
                 </div>
 
                 <div className='deadline-info'>
-                    <p className='object'>Физика</p>
-                    <p className='time'>12.04.25</p>
+                    <p className='object'>{deadlineItem.object}</p>
+                    <p className='time'>{deadlineItem.date}</p>
                 </div>
             </section>
         </div>,

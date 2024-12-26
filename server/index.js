@@ -12,7 +12,11 @@ const PORT = process.env.PORT || 5000;
 
 
 const app = express();
-app.use(cors())
+app.use(cors({
+    origin: '*', // Разрешает запросы со всех доменов
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Разрешенные HTTP методы
+    allowedHeaders: ['Content-Type', 'Authorization'] // Разрешенные заголовки
+}))
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
