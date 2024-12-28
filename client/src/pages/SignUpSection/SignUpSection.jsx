@@ -44,7 +44,8 @@ export default function SignUpForm() {
                 .then(response => {
                     localStorage.removeItem('token')
                     localStorage.setItem('token', response.data.token);
-                    setStudent(jwtDecode(response.data.token));
+                    const student = jwtDecode(response.data.token)
+                    setStudent(student);
                     navigate('/')
                 }).catch(e => {
                     console.log(e);
@@ -59,10 +60,11 @@ export default function SignUpForm() {
                     password: inputInfo.password,
                     role: inputInfo.role,
                 })
-                .then(resposnse => {
+                .then(response => {
                     localStorage.removeItem('token')
-                    localStorage.setItem('token', resposnse.data.token);
-                    setTutor(jwtDecode(resposnse.data.token));
+                    localStorage.setItem('token', response.data.token);
+                    const tutor = jwtDecode(response.data.token)
+                    setStudent(tutor);
                     navigate('/')
                 }).catch(e => {
                     console.log(e);

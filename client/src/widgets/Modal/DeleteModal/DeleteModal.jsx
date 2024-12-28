@@ -1,23 +1,18 @@
 import axios from 'axios';
 import './DeleteModal.scss';
-import { useUserStore } from '../../../app/Stores/useUserStore';
-import { useDeadlineStore } from '../../../app/Stores/useDeadlineStore';
+import { jwtDecode } from 'jwt-decode';
+import { deleteDeadline } from '../../../shared/api/deadlineAPI';
 
-export default function DeleteModal({ onClose, type, deadlineItem, onClickMoreModal }) {
-    const { student } = useUserStore();
-    const { deadline, setDeadline } = useDeadlineStore();
+export default function DeleteModal({ onClose, type, deadlineItem, onClickMoreModal, setDeleteDeadline }) {
+    const student = jwtDecode(localStorage.getItem('token'));
 
     const handleDelete = async () => {
+
         onClose();
         onClickMoreModal();
-        await axios.post('http://localhost:5000/api/deadline/delete', {
-            studentId: 1,
-            deadlineId: deadlineItem.id,
-        }).then(response => {
-            setDeadline(response.data);
-        }).catch(e => {
-            console.log(e);
-        })
+
+        deleteDeadline(student.id, deadlineItem.id);
+        setDeleteDeadline(deadlineItem.id);
     }
 
     return (

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import MoreModal from '../Modal/MoreModal/MoreModal';
+import { deleteDeadline } from '../../shared/api/deadlineAPI';
 
-export default function DeadlineItem({ deadlineItem }) {
+export default function DeadlineItem({ deadlineItem, setDeleteDeadline }) {
     const [isModalMore, setIsModalMore] = useState(false);
 
     const openModalMore = () => {
@@ -13,7 +14,7 @@ export default function DeadlineItem({ deadlineItem }) {
     }
     return (
         <>
-            {isModalMore && <MoreModal deadlineItem={deadlineItem} onClickClose={closeModalMore} />}
+            {isModalMore && <MoreModal deadlineItem={deadlineItem} onClickClose={closeModalMore} setDeleteDeadline={setDeleteDeadline} />}
             <li className="deadline-item">
                 <div className="object-container">
                     <p className="description">{deadlineItem.title}</p>

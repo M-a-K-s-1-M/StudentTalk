@@ -4,8 +4,12 @@ const useUserStore = create((set) => ({
     student: {},
     tutor: {},
 
-    setStudent: (student) => set({ student }),
-    setTutor: (tutor) => set({ tutor }),
+    setStudent: (studentData) => {
+        set((state) => ({ student: { ...state.student, ...studentData } }))
+    },
+    setTutor: (tutorData) => {
+        set((state) => ({ tutor: { ...state.tutor, ...tutorData } }))
+    },
 
 }))
 

@@ -1,17 +1,31 @@
 import ReactDOM from 'react-dom';
 import './AddDeadlineModal.scss';
 import { useState } from 'react';
-export default function AddDeadlineModal({ onClickClose }) {
+import { createDeadline } from '../../../shared/api/deadlineAPI';
+import { jwtDecode } from 'jwt-decode';
+
+export default function AddDeadlineModal({ onClickClose, setDeadlines }) {
     const [titleValue, setTitleValue] = useState('');
     const [descriptionValue, setDescriptionValue] = useState('');
     const [objectValue, setObjectValue] = useState('');
     const [dataValue, setDateValue] = useState('');
+    const student = jwtDecode(localStorage.getItem('token'));
+
+    const handleSubmit = async (evt) => {
+        evt.preventDefault();
+        onClickClose();
+
+        const data = await createDeadline(titleValue, descriptionValue, objectValue, dataValue, student.id);
+        console.log(data);
+        setDeadlines(data);
+
+    }
 
     return ReactDOM.createPortal(
         <div className="bg-wrapper">
             <section className="add-deadline-container">
                 <img className='close-img' src='../../../../public/closeImage.png' width='50' onClick={onClickClose} />
-                <form className='form-container'>
+                <form className='form-container' onSubmit={handleSubmit}>
                     <label htmlFor='title' className='title-label'>
                         <input
                             type='text'
@@ -55,7 +69,7 @@ export default function AddDeadlineModal({ onClickClose }) {
                             />
                         </label>
 
-                        <button type='submit' className='btn-confirm' onClick={evt => { evt.preventDefault() }}>Подтвердить</button>
+                        <button type='submit' className='btn-confirm'>Подтвердить</button>
 
                         <label htmlFor='date' className='date-label'>
                             <input

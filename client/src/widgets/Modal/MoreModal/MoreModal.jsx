@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import DeleteModal from '../DeleteModal/DeleteModal';
 
 
-export default function MoreModal({ deadlineItem, onClickClose }) {
+export default function MoreModal({ deadlineItem, onClickClose, setDeleteDeadline }) {
     const [isDelete, setIsDelete] = useState(false);
 
     return ReactDOM.createPortal(
@@ -20,7 +20,7 @@ export default function MoreModal({ deadlineItem, onClickClose }) {
                     </p>
 
                     <button className="btn-delete" onClick={() => setIsDelete(true)}><img src='../../../../public/trash.svg' /></button>
-                    {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='deadline' deadlineItem={deadlineItem} onClickMoreModal={onClickClose} />}
+                    {isDelete && <DeleteModal onClose={() => setIsDelete(false)} type='deadline' deadlineItem={deadlineItem} onClickMoreModal={onClickClose} setDeleteDeadline={setDeleteDeadline} />}
                 </div>
 
                 <div className='deadline-info'>

@@ -42,6 +42,62 @@
                     line-height: 28px;
                 }
             }
+
+            .btn-wrapper {
+                margin-left: auto;
+                gap: 30px;
+
+                .btn-search {
+                    width: 70px;
+                    height: 70px;
+                    position: relative;
+                    top: 15px;
+                    background-color: #FFF;
+                    border: none;
+                    outline: none;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    border-radius: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    transition: all 500ms ease;
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+
+                .btn-reset-filter-wrapper {
+                    display: flex;
+                    align-items: center;
+
+                    .btn-reset-filter {
+                        border: none;
+                        outline: none;
+                        box-sizing: border-box;
+                        background-color: inherit;
+                        padding: 10px 15px;
+                        font-family: 'Jura', sans-serif;
+                        font-size: 22px;
+                        border-radius: 10px;
+                        border: 2px solid #fff;
+                        color: #fff;
+
+                        transition: all 500ms ease;
+
+                        &:hover {
+                            cursor: pointer;
+                            background-color: #B97CAF;
+                        }
+                    }
+
+                }
+
+
+
+            }
         }
 
         /* Список дедлайны */

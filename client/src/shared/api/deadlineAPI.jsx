@@ -11,11 +11,20 @@ export const fetchDeadlines = async (studentId) => {
     return data;
 }
 
-export const getFilterDeadlines = async (date, object) => {
-
+export const getFilterDeadlines = async (date, object, studentId) => {
+    const { data } = await axios.post('http://localhost:5000/api/deadline/getFilter', { date: date, object: object, studentId: studentId });
+    return data;
 }
 
-export const deleteDeadlines = async (deadlineId) => {
-
+export const deleteDeadline = async (studentId, deadlineId) => {
+    await axios.post('http://localhost:5000/api/deadline/delete', {
+        studentId: studentId,
+        deadlineId: deadlineId,
+    }).then(response => {
+        console.log(response.data);
+        return response.data;
+    }).catch(e => {
+        console.log(e);
+    })
 }
 

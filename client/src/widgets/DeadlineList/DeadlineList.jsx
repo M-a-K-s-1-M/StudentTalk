@@ -1,30 +1,27 @@
 import { useEffect, useState } from "react";
-import { useUserStore } from '../../app/Stores/useUserStore'
 import DeadlineItem from "./DeadlineItem"
 import { fetchDeadlines } from "../../shared/api/deadlineAPI";
-import { useDeadlineStore } from "../../app/Stores/useDeadlineStore"
+import { jwtDecode } from "jwt-decode";
 
-export default function DeadlineList() {
-    const { setDeadline, deadline } = useDeadlineStore()
-    const [deadlines, setDeadlines] = useState([]);
-    const { student } = useUserStore()
+export default function DeadlineList({ deadlines, setDeadlines, setDeleteDeadline }) {
 
     const getDeadlines = async (studentId) => {
-        let data = await fetchDeadlines(studentId);
-        setDeadline(data)
+        const data = await fetchDeadlines(studentId);
+        setDeadlines(data)
     }
 
     useEffect(() => {
-        getDeadlines(1)
+        const student = jwtDecode(localStorage.getItem('token'));
+        getDeadlines(student.id)
     }, [])
 
     return (
 
         <ul className="deadline-list">
-            {deadline.map(d => {
+            {deadlines.map(d => {
                 return (
                     <>
-                        <DeadlineItem key={d.id} deadlineItem={d} />
+                        <DeadlineItem key={d.id} deadlineItem={d} setDeleteDeadline={setDeleteDeadline} />
                     </>
                 )
             })}
