@@ -70,7 +70,7 @@ class StudentController {
             password: hashedNewPassword
         })
 
-        res.status(200).json({ message: 'Пароль успешно изменен' });
+        return res.status(200).json({ message: 'Пароль успешно изменен' });
     }
 }
 

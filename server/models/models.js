@@ -35,6 +35,7 @@ const Ticket = sequelize.define('ticket', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     description: { type: DataTypes.STRING },
+    status: { type: DataTypes.STRING }
 })
 
 const Chat = sequelize.define('chat', {
