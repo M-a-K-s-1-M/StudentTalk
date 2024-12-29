@@ -16,7 +16,6 @@ export default function AddDeadlineModal({ onClickClose, setDeadlines }) {
         onClickClose();
 
         const data = await createDeadline(titleValue, descriptionValue, objectValue, dataValue, student.id);
-        console.log(data);
         setDeadlines(data);
 
     }

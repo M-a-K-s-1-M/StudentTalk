@@ -57,7 +57,7 @@ export default function DeadlineSection() {
                     </div>
 
                     <div className="btn-wrapper">
-                        {dateText || objectText &&
+                        {(dateText || objectText) &&
                             <div className="btn-reset-filter-wrapper">
                                 <button className="btn-reset-filter" onClick={handleResetFilter}>Сбросить фильтры</button>
                             </div>

@@ -50,25 +50,6 @@ export default function SignUpForm() {
                 }).catch(e => {
                     console.log(e);
                 })
-        } else if (inputInfo.role === 'TUTOR') {
-            await axios.post('http://localhost:5000/api/tutor/registration',
-                {
-                    firstname: inputInfo.firstname,
-                    lastname: inputInfo.lastname,
-                    patronymic: inputInfo.patronymic,
-                    email: inputInfo.email,
-                    password: inputInfo.password,
-                    role: inputInfo.role,
-                })
-                .then(response => {
-                    localStorage.removeItem('token')
-                    localStorage.setItem('token', response.data.token);
-                    const tutor = jwtDecode(response.data.token)
-                    setStudent(tutor);
-                    navigate('/')
-                }).catch(e => {
-                    console.log(e);
-                })
         }
     }
 
@@ -145,6 +126,23 @@ export default function SignUpForm() {
                     }}
                 />
 
+                <p>Академическая группа</p>
+                <input
+                    type='text'
+                    id='academGroup'
+                    name='academGroup'
+                    autoComplete='off'
+                    value={inputInfo.academGroup}
+                    onChange={(evt) => {
+                        setInputInfo(props => {
+                            return {
+                                ...props,
+                                academGroup: evt.target.value
+                            }
+                        })
+                    }}
+                />
+
                 <p>Пароль</p>
                 <input
                     type='password'
@@ -178,43 +176,6 @@ export default function SignUpForm() {
                         })
                     }}
                 />
-
-                <p>Роль</p>
-                <label>
-                    <select value={inputInfo.role} onChange={(evt) => {
-                        setInputInfo(props => {
-                            return {
-                                ...props,
-                                role: evt.target.value
-                            }
-                        })
-                    }}>
-                        <option aria-checked value='STUDENT'>Студент</option>
-                        <option value='TUTOR'>Тьютор</option>
-                    </select>
-                </label>
-
-                {inputInfo.role === 'STUDENT' &&
-                    <>
-                        <p>Академическая группа</p>
-                        <input
-                            type='text'
-                            id='academGroup'
-                            name='academGroup'
-                            autoComplete='off'
-                            value={inputInfo.academGroup}
-                            onChange={(evt) => {
-                                setInputInfo(props => {
-                                    return {
-                                        ...props,
-                                        academGroup: evt.target.value
-                                    }
-                                })
-                            }}
-                        />
-                    </>
-                }
-
                 <button className="btn-auth">Регистрация</button>
             </form>
 

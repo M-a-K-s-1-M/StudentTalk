@@ -45,6 +45,33 @@ class StudentController {
         return res.json({ token })
     }
 
+    async updatePassword(req, res) {
+        const { currentPassword, newPassword, confirmPassword, id } = req.body;
+
+        // Проверка текущего пароля
+        const student = await Student.findOne({ where: { id } });
+        if (!student) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        let compareCurrentPassword = bcrypt.compareSync(currentPassword, student.password);
+        if (!compareCurrentPassword) {
+            return res.status(401).json({ message: 'Неверный текущий пароль' });
+        }
+
+        // Проверка совпадения нового пароля и подтверждения
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({ message: 'Новые пароли не совпадают' });
+        }
+
+        // Обновление пароля
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        await student.update({
+            password: hashedNewPassword
+        })
+
+        res.status(200).json({ message: 'Пароль успешно изменен' });
+    }
 }
 
 
