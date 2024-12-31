@@ -59,27 +59,35 @@
 
                     .info-student {
 
-
                         .student,
                         .group {
                             font-size: 20px;
                             line-height: 22px;
                             font-weight: 400;
-                        }
-
-                        .student {
                             box-sizing: border-box;
                             margin-bottom: 7px;
                         }
+
                     }
 
-                    .btn-take-ticket {
-                        @include button-default;
-                        font-size: 24px;
-                        font-weight: 700;
-                        padding: 5px 15px;
-                        margin: 0
+                    .btn-wrapper {
+                        position: relative;
+
+                        .btn-take-ticket {
+                            @include button-default;
+                            font-size: 24px;
+                            font-weight: 700;
+                            padding: 5px 15px;
+                            margin: 0
+                        }
+
+                        .delete-container {
+                            position: absolute;
+                            bottom: -100px;
+                            left: -220px;
+                        }
                     }
+
                 }
             }
         }

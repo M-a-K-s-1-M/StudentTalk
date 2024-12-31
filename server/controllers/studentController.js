@@ -72,6 +72,12 @@ class StudentController {
 
         return res.status(200).json({ message: 'Пароль успешно изменен' });
     }
+
+    async getOneStudent(req, res) {
+        const { id } = req.body;
+        const student = await Student.findOne({ where: { id } })
+        return res.json({ student });
+    }
 }
 
 

@@ -1,13 +1,17 @@
-import { useState } from "react";
-import ChatModalTutor from "../../../widgets/Modal/ChatModal/ChatModalTutor/ChatModalTutor";
+import ChatsItemDecided from "./ChatsItemDecided"
 
-export default function ChatsListDecided({ onClickChat }) {
-    const [isChat, setIsChat] = useState(false);
+export default function ChatsListDecided({ tickets }) {
     return (
         <div className="chats-list-wrapper">
-            {isChat && <ChatModalTutor onClickClose={() => setIsChat(false)} />}
             <ul className="chats-list">
-                <li className='chat-item'>
+                {tickets.map(ticket => {
+                    return (
+                        <>
+                            <ChatsItemDecided ticket={ticket} />
+                        </>
+                    )
+                })}
+                {/* <li className='chat-item'>
                     <div className='info-chat-wrapper'>
                         <h3 className='title'>Проблема с доступом к университетской сети</h3>
                         <p className='description'>Уважаемый тьютор, у меня возникли проблемы с
@@ -24,7 +28,7 @@ export default function ChatsListDecided({ onClickChat }) {
                         </div>
                         <button type='button' className='btn-chat' onClick={() => setIsChat(true)}>Чат</button>
                     </div>
-                </li>
+                </li> */}
 
             </ul>
         </div>

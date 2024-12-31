@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import './AskModal.scss';
 import ReactDOM from 'react-dom';
+import { createTicket } from '../../../shared/api/ticketAPI';
 
-export default function AskModal({ onClickClose, isModalChatOpen }) {
+export default function AskModal({ onClickClose, isModalChatOpen, setTickets, student }) {
     const [themeText, setThemeText] = useState('');
     const [descriptionText, setDescriptionText] = useState('');
 
-    function handleSubmit(evt) {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
-        console.log(themeText, descriptionText);
+        onClickClose();
+        const title = themeText;
+        const description = descriptionText;
+        const studentId = student.id;
+        const ticket = await createTicket(title, description, studentId);
+        setTickets(ticket);
     }
 
     const [currentScrollPosition, setCurrentScrollPosition] = useState(0);

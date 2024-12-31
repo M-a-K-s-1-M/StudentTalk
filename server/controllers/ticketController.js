@@ -3,7 +3,8 @@ const { Ticket } = require('../models/models');
 
 class TicketController {
     async create(req, res) {
-        const { title, description, status, studentId, tutorId } = req.body;
+        const { title, description, studentId, tutorId } = req.body;
+        const status = 'Ожидает принятия';
         const ticket = await Ticket.create({ title, description, status, studentId, tutorId })
         return res.json(ticket);
     }
@@ -21,6 +22,10 @@ class TicketController {
 
         if (status && !tutorId && !studentId) {
             ticket = await Ticket.findAll({ where: { status } })
+        }
+
+        if (!status && !tutorId && !studentId) {
+            ticket = await Ticket.findAll();
         }
 
         return res.json(ticket);
@@ -41,12 +46,12 @@ class TicketController {
     }
 
     async updateStatus(req, res) {
-        const { statusText, id } = req.body;
+        const { status, id } = req.body;
 
         const ticket = await Ticket.findOne({ where: { id } })
 
         await ticket.update({
-            status: statusText
+            status: status
         })
 
         return res.status(200).json({ message: 'Статус тикета изменен' })

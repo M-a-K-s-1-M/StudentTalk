@@ -4,7 +4,7 @@ import DeleteRequest from "../DeleteRequest/DeleteRequest";
 
 
 
-export default function TicketsItemStudent() {
+export default function TicketsItemStudent({ ticket, setTickets }) {
     const [isChat, setIsChat] = useState(false);
     const openModalChat = () => {
         setIsChat(true);
@@ -16,46 +16,25 @@ export default function TicketsItemStudent() {
     return (
         <>
             {isChat && <ChatModalStudent onClickClose={closeModalChat} />}
-
             <li className='requests-item resolve'>
                 <div className='title-container'>
-                    <h3>Проблема с доступом к университетской сети</h3>
-                    <button className='btn-status resolve'>Решается</button>
-                </div>
-                <p className='description'>Уважаемый [Имя куратора], у меня возникли
-                    проблемы с доступом к университетской сети Wi-Fi. Я не могу подключиться,
-                    скорость очень низкая. Куда мне обратиться для решения данной проблемы?</p>
-                <div className='btn-wrapper'>
-                    <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
+                    <h3>{ticket.title}</h3>
+                    {ticket.status === 'Решается' && <button className='btn-status resolve'>{ticket.status}</button>}
+                    {ticket.status === 'Ожидает принятия' && <button className='btn-status expected'>{ticket.status}</button>}
+                    {ticket.status === 'Решено' && <button className='btn-status decided'>{ticket.status}</button>}
 
+                </div>
+                <p className='description'>{ticket.description}</p>
+                <div className='btn-wrapper'>
+                    {ticket.status === 'Решается' && <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>}
+                    {ticket.status === 'Ожидает принятия' && <DeleteRequest ticket={ticket} setTickets={setTickets} />}
+                    {ticket.status === 'Решено' && <>
+                        <DeleteRequest ticket={ticket} setTickets={setTickets} />
+                        <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
+                    </>}
                 </div>
             </li>
 
-            <li className='requests-item decided'>
-                <div className='title-container'>
-                    <h3>Вопрос по поводу изменения расписания занятий</h3>
-                    <button className='btn-status decided'>Решено</button>
-                </div>
-                <p className='description'>Уважаемый куратор, у меня возникли вопросы по поводу изменений в расписании
-                    занятий по Программированию для группы РТФ-212. Мне стало известно, что занятия 26 октября
-                    будут проходить...
-                </p>
-                <div className='btn-wrapper'>
-                    <DeleteRequest />
-                    <button className='btn-chat' type='button' onClick={openModalChat}>Чат</button>
-                </div>
-            </li>
-
-            <li className='requests-item expected'>
-                <div className='title-container'>
-                    <h3>Необходимость уточнения деталей переноса занятий</h3>
-                    <button className='btn-status expected'>Ожидает принятия</button>
-                </div>
-                <p className='description'>Здравствуйте, уважаемый куратор! Я хотел бы получить дополнительные разъяснения по поводу переноса занятий по Программированию....</p>
-                <div className='btn-wrapper'>
-                    <DeleteRequest />
-                </div>
-            </li>
         </>
     )
 }

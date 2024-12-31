@@ -1,13 +1,26 @@
 import './NotificationsSectionStudent.scss'
-import ChatModalStudent from '../../../widgets/Modal/ChatModal/ChatModalStudent/ChatModalStudent.jsx'
 import AskModal from '../../../widgets/Modal/AskModal/AskModal.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AdList from '../../../widgets/AdList/AdList.jsx';
-import DeleteRequest from '../../../widgets/DeleteRequest/DeleteRequest.jsx';
 import TicketsListStudent from '../../../widgets/TicketsListStudent/TicketsListStudent.jsx';
+import { fetchTickets } from '../../../shared/api/ticketAPI.jsx';
+import { jwtDecode } from 'jwt-decode';
+
 
 export default function NotificationsSectionStudent() {
     const [isAsk, setIsAsk] = useState(false);
+    const [tickets, setTickets] = useState([]);
+    const student = jwtDecode(localStorage.getItem('token'));
+
+    useEffect(() => {
+        const getTickets = async (studentId) => {
+            const data = await fetchTickets(studentId);
+            setTickets(data);
+        }
+
+        getTickets(student.id);
+
+    }, [])
 
     const openModalAsk = () => {
         setIsAsk(true);
@@ -21,14 +34,14 @@ export default function NotificationsSectionStudent() {
     return (
         <main className='notifications'>
 
-            {isAsk && <AskModal onClickClose={closeModalAsk} />}
+            {isAsk && <AskModal onClickClose={closeModalAsk} setTickets={ticket => (setTickets([...tickets, ticket]))} student={student} />}
 
             <section className='block-ad'>
                 <AdList />
             </section>
 
             <section className='block-requests'>
-                <TicketsListStudent />
+                <TicketsListStudent tickets={tickets} setTickets={(ticketId) => setTickets(tickets.filter(t => t.id !== ticketId))} />
 
                 <div className='btn-wrapper'>
                     <button type='button' className='btn-question' onClick={openModalAsk}>Спросить</button>

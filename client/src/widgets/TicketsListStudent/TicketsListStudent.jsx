@@ -1,9 +1,15 @@
 import TicketsItemStudent from "../TicketsItemStudent/TicketsItemStudent";
 
-export default function TicketsListStudent() {
+export default function TicketsListStudent({ tickets, setTickets }) {
     return (
         <ul className='requests-list'>
-            <TicketsItemStudent />
+            {tickets.map(ticket => {
+                return (
+                    <>
+                        <TicketsItemStudent ticket={ticket} setTickets={setTickets} />
+                    </>
+                )
+            })}
         </ul>
     )
 }

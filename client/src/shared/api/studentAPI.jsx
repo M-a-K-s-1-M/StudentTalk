@@ -21,3 +21,8 @@ export const updatePassword = async (currentPassword, newPassword, confirmPasswo
         })
 
 }
+
+export const getOneStudent = async (id) => {
+    const { data } = await axios.post(`http://localhost:5000/api/student/getOne`, { id });
+    return data;
+}
