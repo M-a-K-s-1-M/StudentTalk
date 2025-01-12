@@ -1,0 +1,76 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.signin-admin-container {
+    box-sizing: border-box;
+    background: rgb(154, 29, 137);
+    background: linear-gradient(180deg, rgba(154, 29, 137, 1) 0%, rgba(52, 10, 46, 1) 100%);
+    height: 100vh;
+    text-align: center;
+    padding-top: 10%;
+
+    .signin-admin {
+        position: relative;
+        box-sizing: border-box;
+        background: rgb(179, 114, 168);
+        display: inline-block;
+        background: linear-gradient(180deg, rgba(179, 114, 168, 1) 0%, rgba(113, 41, 101, 1) 100%);
+        border-radius: 45px;
+        padding: 10px 250px;
+        padding-top: 0;
+        color: #FFF;
+
+        .logo-admin {
+            position: relative;
+            bottom: 20px;
+            width: 540px;
+        }
+
+        .form-info {
+            position: relative;
+            bottom: 70px;
+
+            h2 {
+                box-sizing: border-box;
+                font-weight: 600;
+                font-size: 36px;
+                margin-bottom: 25px;
+            }
+
+            .admin-form {
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                label {
+                    font-size: 24px;
+                    font-weight: 400;
+                    margin-bottom: 5px;
+                }
+
+                input {
+                    text-align: center;
+                    box-sizing: border-box;
+                    font-family: "Jura", sans-serif;
+                    font-size: 20px;
+                    font-weight: 400;
+                    padding: 8px 80px;
+                    outline: none;
+                    border: none;
+                    border-radius: 10px;
+                    margin-bottom: 35px;
+                }
+
+                .btn-submit {
+                    @include button-default;
+                    font-size: 36px;
+                    font-weight: 400;
+                    padding: 7px 200px;
+                    border-radius: 30px;
+                }
+            }
+        }
+
+
+    }
+}

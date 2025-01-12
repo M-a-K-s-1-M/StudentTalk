@@ -97,5 +97,35 @@
             }
         }
 
+        .btn-wrapper {
+            margin-left: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .btn-exit {
+                font-family: "Jura", sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                padding: 10px 20px;
+                border: none;
+                outline: none;
+                background-color: inherit;
+                color: #fff;
+                border-radius: 10px;
+                border: 1px solid #fff;
+                transition: all 500ms ease;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #fff;
+                    border: 1px solid #fff;
+                    color: #B97CAF;
+
+                }
+            }
+        }
+
+
     }
 }

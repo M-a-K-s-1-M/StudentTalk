@@ -4,7 +4,8 @@ import SignInSection from '../pages/SignInSection/SignInSection';
 import SignUpSection from '../pages/SignUpSection/SignUpSection';
 
 import GeneralLayout from '../app/Layout/GeneralLayout';
-import Admin from '../pages/Admin/Admin';
+import SignInAdmin from '../pages/SignInAdmin/SignInAdmin';
+import GeneralLayoutAdmin from './Layout/GeneralLayoutAdmin';
 
 
 export default function App() {
@@ -13,9 +14,11 @@ export default function App() {
       <Routes>
         <Route path="/" element={<SignInSection />} />
         <Route path="/signup" element={<SignUpSection />} />
-
         <Route path='/main/*' element={<GeneralLayout />} />
-        <Route path='admin' element={<Admin />} />
+
+        <Route path='/admin_signin' element={<SignInAdmin />} />
+        <Route path='/main_admin/*' element={<GeneralLayoutAdmin />} />
+
 
 
       </Routes>

@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class AdminController {
     async login(req, res) {
@@ -11,7 +12,9 @@ class AdminController {
             return res.status(401).json({ message: 'Указан неверный пароль' })
         }
 
-        return res.status(200).json({ message: 'Успешный вход' })
+        const token = jwt.sign({ role: 'ADMIN' }, process.env.SECRET_KEY, { expiresIn: '24h' });
+
+        return res.status(200).json({ token })
     }
 }
 

@@ -23,7 +23,7 @@ export default function GeneralLayout() {
     return (
         <Routes>
             {user.role === 'STUDENT' && <>
-                <Route path='/' element={<StudentLayout role='student' />}>
+                <Route path='/' element={<StudentLayout />}>
                     {/* Студентские маршруты */}
                     <Route index element={<DefaultPage />} />
                     <Route path="notifications" element={<NotificationsSectionStudent />} />
@@ -33,7 +33,7 @@ export default function GeneralLayout() {
             </>}
 
             {user.role === 'TUTOR' && <>
-                <Route path='/' element={<TutorLayout role='tutor' />}>
+                <Route path='/' element={<TutorLayout />}>
                     {/* Тьюторские маршруты */}
                     < Route index element={< DefaultPage />} />
                     < Route path="notifications" element={< NotificationsSectionTutor />} />
