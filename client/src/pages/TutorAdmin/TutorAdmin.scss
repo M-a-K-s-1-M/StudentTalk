@@ -5,6 +5,7 @@
     padding: 25px 40px;
     background: rgb(154, 29, 137);
     background: linear-gradient(180deg, rgba(154, 29, 137, 1) 0%, rgba(52, 10, 46, 1) 100%);
+    background-size: 100%;
     height: 100vh;
 
     .tutor-admin {
@@ -137,7 +138,44 @@
                     }
                 }
 
-                .btn-save {
+                .input-wrapper {
+                    position: relative;
+                    display: flex;
+                    box-sizing: border-box;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 25px;
+
+                    .btn-show {
+                        background-color: inherit;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: none;
+                        transition: all 500ms ease;
+
+                        position: absolute;
+                        bottom: 10px;
+                        right: 10px;
+
+                        &:hover {
+                            cursor: pointer;
+                            transform: scale(1.1)
+                        }
+
+                        .show-image {
+                            width: 25px;
+                        }
+                    }
+                }
+
+
+
+
+
+                .btn-save,
+                .btn-edit {
                     position: absolute;
                     bottom: 25px;
                     right: 25px;
@@ -145,6 +183,21 @@
                     @include button-default;
                     border-radius: 45px;
                     box-shadow: none;
+                }
+
+                .btn-delete {
+                    position: absolute;
+                    bottom: 25px;
+                    left: 25px;
+
+                    @include button-default;
+                    border-radius: 45px;
+                    background-color: #FF0000;
+                    box-shadow: none;
+
+                    &:hover {
+                        background-color: #af0f0f;
+                    }
                 }
             }
         }

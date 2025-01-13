@@ -73,6 +73,26 @@ class TutorController {
         res.status(200).json({ message: 'Пароль успешно изменен' });
     }
 
+    async getAllTutor(req, res) {
+        const tutors = await Tutor.findAll();
+
+        return res.json(tutors);
+    }
+
+    async deleteTutor(req, res) {
+        const { email } = req.body;
+
+        const deletedCount = await Tutor.destroy({
+            where: { email: email }
+        });
+
+        if (deletedCount > 0) {
+            return res.status(200).json({ message: "Тьютор удалён!" })
+        } else {
+            return res.status(404).json({ message: "Тьютор не найден!" });
+        }
+    }
+
 }
 
 
