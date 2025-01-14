@@ -93,6 +93,25 @@ class TutorController {
         }
     }
 
+    async updateTutor(req, res) {
+        const { id, firstname, lastname, patronymic, email } = req.body;
+        const tutor = await Tutor.findOne({ where: { id } });
+
+        if (tutor.firstname === firstname && tutor.lastname === lastname && tutor.patronymic === patronymic && tutor.email === email) {
+            return res.json({ message: 'Данные не изменены!' })
+        }
+
+        await tutor.update({
+            firstname: firstname,
+            lastname: lastname,
+            patronymic: patronymic,
+            email: email
+        })
+
+        return res.json({ tutor, message: 'Данные успешно обновлены!' });
+
+    }
+
 }
 
 

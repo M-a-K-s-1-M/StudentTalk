@@ -34,7 +34,7 @@ export default function TutorAdmin() {
                             {tutors.map(tutor => {
                                 return (
                                     <>
-                                        <li className='tutor-list-item'>
+                                        <li className='tutor-list-item' key={tutor.id}>
                                             <p className='fio'>{tutor.lastname} {tutor.firstname} {tutor.patronymic}</p>
                                             <button className="btn-more-admin" onClick={() => { setIsAdd(false); setIsEdit(true); setCurrentTutor(tutor) }}>Подробнее</button>
                                         </li>
