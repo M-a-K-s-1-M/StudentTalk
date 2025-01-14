@@ -36,7 +36,9 @@ export default function Header({ role }) {
                         <li><NavLink to={currentTabs[1].to} className={({ isActive }) => isActive ? 'link active' : 'link'} >{currentTabs[1].label}</NavLink></li>
                     </ul>
 
-                    {currentUserRole === 'tutor' || currentUserRole === 'student' && <button className='btn-profile'><NavLink className={({ isActive }) => isActive ? 'link-profile active' : 'link-profile'} to={currentTabs[2].to}></NavLink></button>}
+                    {currentUserRole === 'tutor' && <button className='btn-profile'><NavLink className={({ isActive }) => isActive ? 'link-profile active' : 'link-profile'} to={currentTabs[2].to}></NavLink></button>}
+                    {currentUserRole === 'student' && <button className='btn-profile'><NavLink className={({ isActive }) => isActive ? 'link-profile active' : 'link-profile'} to={currentTabs[2].to}></NavLink></button>}
+
                     {currentUserRole === 'admin' &&
                         <>
                             <div className="btn-wrapper">

@@ -3,13 +3,16 @@ import './ChatModalStudent.scss';
 import ReactDOM from 'react-dom';
 import ProblemModal from "../../../../widgets/Modal/ProblemModal/ProblemModal";
 
-export default function ChatModalStudent({ onClickClose }) {
+export default function ChatModalStudent({ onClickClose, ticket, setTickets }) {
     const [isProblem, setIsProblem] = useState(false);
 
     const [textMessage, setTextMessage] = useState('');
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+
+
+
         console.log(evt.target.value)
     }
 
@@ -60,7 +63,7 @@ export default function ChatModalStudent({ onClickClose }) {
 
                 <div className="status-container">
                     <a href='#' onClick={(evt) => { evt.preventDefault(); setIsProblem(true) }}>Проблема решена?</a>
-                    {isProblem && <ProblemModal onClose={() => setIsProblem(false)} />}
+                    {isProblem && <ProblemModal onClose={() => setIsProblem(false)} ticket={ticket} onClickClose={onClickClose} setTickets={setTickets} />}
                 </div>
 
 
