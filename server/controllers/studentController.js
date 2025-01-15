@@ -9,6 +9,11 @@ const generateJWT = (id, firstname, lastname, patronymic, email, role, academGro
 class StudentController {
     async registration(req, res) {
         const { firstname, lastname, patronymic, email, password, role, academGroup, numberCurs } = req.body;
+
+        if (numberCurs === null) {
+            numberCurs = inputInfo.academGroup[3];
+        }
+
         if (!email || !password) {
             return res.json({ message: 'Некорректный email или пароль' })
         }
@@ -78,6 +83,27 @@ class StudentController {
         const student = await Student.findOne({ where: { id } })
         return res.json({ student });
     }
+
+    async getAllStudent(req, res) {
+        const students = await Student.findAll();
+
+        return res.json(students);
+    }
+
+    async deleteStudent(req, res) {
+        const { email } = req.body;
+
+        const deletedCount = await Student.destroy({
+            where: { email: email }
+        });
+
+        if (deletedCount > 0) {
+            return res.status(200).json({ message: "Студент удалён!" })
+        } else {
+            return res.status(404).json({ message: "Студент не найден!" });
+        }
+    }
+
 }
 
 

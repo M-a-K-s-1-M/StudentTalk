@@ -1,0 +1,101 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.student-admin-container {
+    box-sizing: border-box;
+    padding: 25px 40px;
+    background: rgb(154, 29, 137);
+    background: linear-gradient(180deg, rgba(154, 29, 137, 1) 0%, rgba(52, 10, 46, 1) 100%);
+    background-size: 100%;
+    height: 100vh;
+
+    .student-admin {
+        color: #fff;
+        box-sizing: border-box;
+        width: 100%;
+        background: rgb(179, 114, 168);
+        background: linear-gradient(180deg, rgba(179, 114, 168, 1) 0%, rgba(113, 41, 101, 1) 100%);
+        padding: 20px 30px;
+        border-radius: 45px;
+
+        display: grid;
+        grid-template-columns: 34% 64%;
+        gap: 2%;
+
+        .student-list-container {
+            box-sizing: border-box;
+
+            h2 {
+                font-weight: 700;
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+
+            .student-list-wrapper {
+                box-sizing: border-box;
+                background-color: #EADCE8;
+                border-radius: 45px;
+                padding: 25px 25px;
+
+
+                .student-list {
+                    box-sizing: border-box;
+                    border-radius: 30px;
+                    height: 745px;
+                    overflow-y: auto;
+
+                    .student-list-item {
+                        box-sizing: border-box;
+                        background-color: #fff;
+                        border-radius: 30px;
+                        padding: 20px 35px;
+                        color: #000;
+                        display: flex;
+                        gap: 3%;
+                        justify-content: space-between;
+                        margin-bottom: 15px;
+                        font-size: 24px;
+                        font-weight: 400;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .btn-more-admin {
+                            box-sizing: border-box;
+                            font-family: "Jura", sans-serif;
+                            color: #fff;
+                            outline: none;
+                            border: none;
+                            border-radius: 10px;
+                            font-size: 16px;
+                            font-weight: 400;
+                            padding: 10px 15px;
+                            background-color: #C123AB;
+                            transition: all 500ms ease;
+
+                            &:hover {
+                                cursor: pointer;
+                                background-color: rgba(156, 32, 139, 1);
+                            }
+                        }
+
+                    }
+                }
+
+                .btn-wrapper {
+                    display: flex;
+                    justify-content: right;
+
+                    .btn-add-student {
+                        @include button-default;
+                        border-radius: 45px;
+                        box-shadow: none;
+                    }
+
+                }
+            }
+        }
+
+
+    }
+}

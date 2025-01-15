@@ -1,0 +1,145 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.student-edit-admin-container {
+    box-sizing: border-box;
+
+    h2 {
+        font-size: 32px;
+        font-weight: 700;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .edit-block-wrapper {
+        box-sizing: border-box;
+        padding: 40px 25px;
+        padding-bottom: 20px;
+        background-color: #EADCE8;
+        border-radius: 45px;
+
+        .student-info-wrapper {
+            display: grid;
+            grid-template-columns: 43% 53%;
+            gap: 4%;
+            height: 735px;
+
+            .student-info {
+                position: relative;
+                box-sizing: border-box;
+                background-color: #EADCE8;
+                border-radius: 45px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 35px;
+
+                label {
+                    box-sizing: border-box;
+                    color: #000;
+                    font-size: 20px;
+                    margin: 5px;
+                }
+
+                input {
+                    box-sizing: border-box;
+                    font-family: "Jura", sans-serif;
+                    font-size: 24px;
+                    font-weight: 400;
+                    text-align: center;
+                    padding: 10px 70px;
+                    border: none;
+                    outline: none;
+                    border-radius: 10px;
+                    margin-bottom: 25px;
+
+                    &:last-of-type {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .student-ticket-info {
+                color: #000;
+                box-sizing: border-box;
+
+                .ticket-list-title {
+                    font-weight: 400;
+                    font-size: 32px;
+                    margin-bottom: 5px;
+                }
+
+                .ticket-list-student {
+                    background-color: #FFFFFF;
+                    box-sizing: border-box;
+                    border-radius: 45px;
+                    padding: 30px 25px;
+                    height: 650px;
+                    overflow-y: auto;
+
+                    .ticket-student-item {
+                        background-color: #E3E3E3;
+                        box-sizing: border-box;
+                        padding: 10px 15px;
+                        border-radius: 10px;
+                        display: grid;
+                        grid-template-columns: 80% 20%;
+                        margin-bottom: 15px;
+
+                        &:last-of-type {
+                            margin-bottom: 0;
+                        }
+
+                        .ticket-content-wrapper {
+
+                            .ticket-title {
+                                font-weight: 700;
+                                font-size: 20px;
+                                line-height: 24px;
+                            }
+
+                            .ticket-description {
+                                font-weight: 400;
+                                font-size: 20px;
+                                line-height: 24px;
+                            }
+                        }
+
+                        .btn-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: end;
+
+                            .btn-chat {
+                                @include button-default;
+                                padding: 2px 50px;
+
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        .btn-edit-wrapper {
+            display: flex;
+            justify-content: space-between;
+
+            .btn-delete,
+            .btn-edit {
+                @include button-default;
+                margin: 0;
+                border-radius: 45px;
+                box-shadow: none;
+            }
+
+            .btn-delete {
+                background-color: #FF0000;
+
+                &:hover {
+                    background-color: #af0f0f;
+                }
+            }
+        }
+    }
+}

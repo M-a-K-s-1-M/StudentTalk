@@ -1,0 +1,107 @@
+@use '../../shared/ui/styles/buttons' as *;
+
+.student-admin-info-container {
+    h2 {
+        font-weight: 700;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    form {
+        position: relative;
+        box-sizing: border-box;
+        background-color: #EADCE8;
+        border-radius: 45px;
+        height: 835px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        label {
+            box-sizing: border-box;
+            color: #000;
+            font-size: 20px;
+            margin: 5px;
+        }
+
+        input {
+            box-sizing: border-box;
+            font-family: "Jura", sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            padding: 10px 70px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            margin-bottom: 25px;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            box-sizing: border-box;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 25px;
+
+            .btn-show {
+                background-color: inherit;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: none;
+                transition: all 500ms ease;
+
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.1)
+                }
+
+                .show-image {
+                    width: 25px;
+                }
+            }
+        }
+
+
+
+
+
+        .btn-save,
+        .btn-edit {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+
+            @include button-default;
+            border-radius: 45px;
+            box-shadow: none;
+        }
+
+        .btn-delete {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+
+            @include button-default;
+            border-radius: 45px;
+            background-color: #FF0000;
+            box-shadow: none;
+
+            &:hover {
+                background-color: #af0f0f;
+            }
+        }
+    }
+}
