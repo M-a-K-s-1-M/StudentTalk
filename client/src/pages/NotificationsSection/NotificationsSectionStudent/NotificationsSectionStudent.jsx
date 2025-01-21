@@ -31,6 +31,7 @@ export default function NotificationsSectionStudent() {
     }
 
 
+
     return (
         <main className='notifications'>
 
@@ -41,7 +42,7 @@ export default function NotificationsSectionStudent() {
             </section>
 
             <section className='block-requests'>
-                <TicketsListStudent tickets={tickets} setTickets={(ticketId) => setTickets(tickets.filter(t => t.id !== ticketId))} />
+                <TicketsListStudent tickets={tickets} setTickets={(ticketId) => setTickets(tickets.filter(t => t.id !== ticketId))} updateTicket={(newTicket) => setTickets(prevTickets => [...prevTickets, newTicket])} />
 
                 <div className='btn-wrapper'>
                     <button type='button' className='btn-question' onClick={openModalAsk}>Спросить</button>

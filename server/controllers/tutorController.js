@@ -79,6 +79,14 @@ class TutorController {
         return res.json(tutors);
     }
 
+    async getOneTutor(req, res) {
+        const { tutorId } = req.body;
+
+        const tutor = await Tutor.findOne({ where: { id: tutorId } })
+
+        return res.json({ tutor });
+    }
+
     async deleteTutor(req, res) {
         const { email } = req.body;
 

@@ -13,7 +13,6 @@ export default function DeleteModal({ onClose, type, deadlineItem, onClickMoreMo
         const ticketId = ticket.id;
         const data = await deleteTicket(ticketId);
         setTickets(ticketId);
-        alert(data.message);
     }
 
     const handleDeleteDeadline = async () => {
@@ -34,7 +33,6 @@ export default function DeleteModal({ onClose, type, deadlineItem, onClickMoreMo
 
         await updateStatus(status, id);
         const data = await updateTutor(tutorId, id);
-        alert(data.message);
         setTicketsResolve(ticket);
 
     }

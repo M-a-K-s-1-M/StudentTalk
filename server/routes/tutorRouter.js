@@ -8,6 +8,7 @@ router.post('/updatePassword', tutorController.updatePassword);
 router.get('/getAllTutor', tutorController.getAllTutor);
 router.post('/deleteTutor', tutorController.deleteTutor);
 router.post('/updateTutor', tutorController.updateTutor);
+router.post('/getOneTutor', tutorController.getOneTutor);
 
 
 module.exports = router;

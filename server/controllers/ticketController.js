@@ -54,7 +54,7 @@ class TicketController {
             status: status
         })
 
-        return res.status(200).json({ message: 'Статус тикета изменен' })
+        return res.status(200).json({ message: 'Статус тикета изменен', ticket })
     }
 
     async updateTutor(req, res) {

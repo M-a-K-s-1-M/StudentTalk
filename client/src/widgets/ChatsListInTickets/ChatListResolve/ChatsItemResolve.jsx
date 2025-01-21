@@ -18,7 +18,7 @@ export default function ChatsItemDecided({ ticket }) {
 
     return (
         <>
-            {isChat && <ChatModalTutor onClickClose={() => setIsChat(false)} />}
+            {isChat && <ChatModalTutor onClickClose={() => setIsChat(false)} ticket={ticket} student={student} />}
 
             <li className='chat-item'>
                 <div className='info-chat-wrapper'>

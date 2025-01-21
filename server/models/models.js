@@ -38,10 +38,6 @@ const Ticket = sequelize.define('ticket', {
     status: { type: DataTypes.STRING }
 })
 
-const Chat = sequelize.define('chat', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-})
-
 const Message = sequelize.define('message', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     description: { type: DataTypes.STRING },
@@ -87,12 +83,6 @@ Ticket.belongsTo(Student);
 Ticket.hasOne(Student);
 Student.belongsTo(Ticket);
 
-Student.hasMany(Chat);
-Chat.belongsTo(Student);
-
-Chat.hasOne(Student);
-Student.belongsTo(Chat);
-
 Student.hasOne(Group);
 Group.belongsTo(Student);
 
@@ -111,11 +101,11 @@ Student.belongsTo(StudentAd);
 
 /// -----
 
-Chat.hasMany(Message);
-Message.belongsTo(Chat);
+Ticket.hasMany(Message);
+Message.belongsTo(Ticket);
 
-Message.hasOne(Chat);
-Chat.belongsTo(Message);
+Message.hasOne(Ticket);
+Ticket.belongsTo(Message);
 
 Ad.hasOne(StudentAd);
 StudentAd.belongsTo(Ad);
@@ -125,19 +115,11 @@ Ad.belongsTo(StudentAd);
 
 /// -----
 
-
-
 Tutor.hasMany(Ticket);
 Ticket.belongsTo(Tutor);
 
 Ticket.hasOne(Tutor);
 Tutor.belongsTo(Ticket);
-
-Tutor.hasMany(Chat);
-Chat.belongsTo(Tutor);
-
-Chat.hasOne(Tutor);
-Tutor.belongsTo(Chat);
 
 Tutor.hasMany(Ad);
 Ad.belongsTo(Tutor);
@@ -156,7 +138,6 @@ module.exports = {
     Tutor,
     Deadline,
     Ticket,
-    Chat,
     Message,
     Group,
     Curs,

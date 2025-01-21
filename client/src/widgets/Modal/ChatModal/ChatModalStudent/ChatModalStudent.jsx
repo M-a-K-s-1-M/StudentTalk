@@ -1,70 +1,110 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './ChatModalStudent.scss';
 import ReactDOM from 'react-dom';
 import ProblemModal from "../../../../widgets/Modal/ProblemModal/ProblemModal";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
-export default function ChatModalStudent({ onClickClose, ticket, setTickets }) {
+export default function ChatModalStudent({ onClickClose, ticket, setTickets, updateTicket }) {
     const [isProblem, setIsProblem] = useState(false);
-
     const [textMessage, setTextMessage] = useState('');
+    const student = jwtDecode(localStorage.getItem('token'));
+    const [tutor, setTutor] = useState({});
+    const [messages, setMessages] = useState([]);
 
-    const handleSubmit = (evt) => {
+    useEffect(() => {
+        const getOneTutor = async () => {
+            await axios.post('http://localhost:5000/api/tutor/getOneTutor', {
+                tutorId: ticket.tutorId
+            }).then(response => {
+                setTutor(response.data.tutor);
+            }).catch(e => {
+                console.log(e);
+            })
+        }
+
+        const getAllMessages = async () => {
+            await axios.post('http://localhost:5000/api/message/getAll', {
+                ticketId: ticket.id
+            }).then(response => {
+                setMessages(response.data.messages);
+            }).catch(e => {
+                console.log(e);
+            })
+        }
+        getAllMessages();
+        getOneTutor();
+    }, [])
+
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-
-
-        console.log(evt.target.value)
+        await axios.post('http://localhost:5000/api/message/create', {
+            description: textMessage,
+            role: student.role,
+            ticketId: ticket.id,
+        }).then(response => {
+            setMessages(prevMessages => ([...prevMessages, response.data.message]))
+            setTextMessage('');
+        })
     }
 
     return ReactDOM.createPortal(
         <div className="bg-wrapper">
             <section className="chat-container">
                 <img className="close-img" src="../../../../../public/closeImage.png" width='50' onClick={onClickClose} />
-                <div className="status-color resolve" />
+                {ticket.status === 'Решено' && <div className="status-color decided" />}
+                {ticket.status === 'Решается' && <div className="status-color resolve" />}
+
                 <div className="chat-wrapper">
 
 
                     <div className="chat">
                         <div className="message theme">
-                            <h4 className="name">Иванов Иван Николаевич</h4>
+                            <h4 className="name">Вы</h4>
                             <div className="description-container">
-                                <h3 className="title">Проблема с доступом к университетской сети</h3>
-                                <p className="description">Уважаемый [Имя куратора], у меня возникли проблемы с доступом
-                                    к университетской сети Wi-Fi. Я не могу подключиться, скорость очень низкая.
-                                    Куда мне обратиться для решения данной проблемы?</p>
+                                <h3 className="title">{ticket.title}</h3>
+                                <p className="description">{ticket.description}</p>
                             </div>
                         </div>
 
                         <ul className="message-list">
-                            <li className="message tutor">
-                                <h4 className="name">Тьютор</h4>
-                                <div className="description-container">
-                                    <p className="description">Мы работаем над решением вашей проблемы</p>
-                                </div>
-                            </li>
-
-                            <li className="message student">
-                                <h4>Иванов Иван Николаевич</h4>
-                                <div className="description-container">
-                                    <p className="description">Ответ студента</p>
-                                </div>
-                            </li>
-
+                            {messages.map(message => {
+                                return (
+                                    <>
+                                        {message.role === 'STUDENT' ? <li className="message student">
+                                            <h4>Вы</h4>
+                                            <div className="description-container">
+                                                <p className="description">{message.description}</p>
+                                            </div>
+                                        </li>
+                                            :
+                                            <li className="message tutor">
+                                                <h4 className="name">{tutor.lastname} {tutor.firstname} {tutor.patronymic}</h4>
+                                                <div className="description-container">
+                                                    <p className="description">{message.description}</p>
+                                                </div>
+                                            </li>}
+                                    </>
+                                )
+                            })}
                         </ul>
                     </div>
                 </div>
 
-                <div className="form-container">
-                    <form onSubmit={handleSubmit}>
-                        <textarea type='text' placeholder="Сообщение" value={textMessage} onChange={(evt) => setTextMessage(evt.target.value)} required />
-                        <button type="submit"><img src="../../../../../public/submit.png" width="30" /></button>
-                    </form>
-                </div>
+                {ticket.status === "Решается" && <>
+                    <div className="form-container">
+                        <form onSubmit={handleSubmit}>
+                            <textarea type='text' placeholder="Сообщение" value={textMessage} onChange={(evt) => setTextMessage(evt.target.value)} required />
+                            <button type="submit"><img src="../../../../../public/submit.png" width="30" /></button>
+                        </form>
+                    </div>
 
-                <div className="status-container">
-                    <a href='#' onClick={(evt) => { evt.preventDefault(); setIsProblem(true) }}>Проблема решена?</a>
-                    {isProblem && <ProblemModal onClose={() => setIsProblem(false)} ticket={ticket} onClickClose={onClickClose} setTickets={setTickets} />}
-                </div>
+                    <div className="status-container">
+                        <a href='#' onClick={(evt) => { evt.preventDefault(); setIsProblem(true) }}>Проблема решена?</a>
+                        {isProblem && <ProblemModal onClose={() => setIsProblem(false)} ticket={ticket} onClickClose={onClickClose} setTickets={setTickets} updateTicket={updateTicket} />}
+                    </div>
+                </>}
 
 
             </section>

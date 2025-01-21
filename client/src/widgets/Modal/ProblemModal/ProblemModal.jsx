@@ -1,14 +1,15 @@
 import axios from 'axios';
 import './ProblemModal.scss';
 
-export default function ProblemModal({ onClose, ticket, onClickClose, setTickets }) {
+export default function ProblemModal({ onClose, ticket, onClickClose, setTickets, updateTicket }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         await axios.post('http://localhost:5000/api/ticket/updateStatus', {
             status: "Решено",
             id: ticket.id,
         }).then(response => {
-            alert(response.data.message);
+            setTickets(ticket.id);
+            updateTicket(response.data.ticket);
             onClose();
             onClickClose();
         })

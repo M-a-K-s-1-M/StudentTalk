@@ -4,7 +4,7 @@ import DeleteRequest from "../DeleteRequest/DeleteRequest";
 
 
 
-export default function TicketsItemStudent({ ticket, setTickets }) {
+export default function TicketsItemStudent({ ticket, setTickets, updateTicket }) {
     const [isChat, setIsChat] = useState(false);
     const openModalChat = () => {
         setIsChat(true);
@@ -15,7 +15,7 @@ export default function TicketsItemStudent({ ticket, setTickets }) {
     }
     return (
         <>
-            {isChat && <ChatModalStudent onClickClose={closeModalChat} ticket={ticket} setTickets={setTickets} />}
+            {isChat && <ChatModalStudent onClickClose={closeModalChat} ticket={ticket} setTickets={setTickets} updateTicket={updateTicket} />}
             <li className='requests-item resolve'>
                 <div className='title-container'>
                     <h3>{ticket.title}</h3>
