@@ -15,7 +15,13 @@ export default function TicketsItemStudent({ ticket, setTickets, updateTicket })
     }
     return (
         <>
-            {isChat && <ChatModalStudent onClickClose={closeModalChat} ticket={ticket} setTickets={setTickets} updateTicket={updateTicket} />}
+            {isChat && <ChatModalStudent
+                onClickClose={closeModalChat}
+                ticket={ticket}
+                setTickets={setTickets}
+                updateTicket={updateTicket}
+            />}
+
             <li className='requests-item resolve'>
                 <div className='title-container'>
                     <h3>{ticket.title}</h3>

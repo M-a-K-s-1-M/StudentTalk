@@ -6,7 +6,11 @@ export default function TicketsListStudent({ tickets, setTickets, updateTicket }
             {tickets.map(ticket => {
                 return (
                     <>
-                        <TicketsItemStudent ticket={ticket} setTickets={setTickets} updateTicket={updateTicket} />
+                        <TicketsItemStudent
+                            ticket={ticket}
+                            setTickets={setTickets}
+                            updateTicket={updateTicket}
+                        />
                     </>
                 )
             })}

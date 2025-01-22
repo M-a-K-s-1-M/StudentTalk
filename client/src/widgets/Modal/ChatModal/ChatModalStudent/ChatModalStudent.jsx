@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './ChatModalStudent.scss';
 import ReactDOM from 'react-dom';
 import ProblemModal from "../../../../widgets/Modal/ProblemModal/ProblemModal";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import socket from '../../../../app/socket';
 
 export default function ChatModalStudent({ onClickClose, ticket, setTickets, updateTicket }) {
     const [isProblem, setIsProblem] = useState(false);
@@ -11,8 +12,13 @@ export default function ChatModalStudent({ onClickClose, ticket, setTickets, upd
     const student = jwtDecode(localStorage.getItem('token'));
     const [tutor, setTutor] = useState({});
     const [messages, setMessages] = useState([]);
+    const messageList = useRef(null);
 
     useEffect(() => {
+        socket.emit('ROOM:JOIN', {
+            ticketId: ticket.id
+        })
+
         const getOneTutor = async () => {
             await axios.post('http://localhost:5000/api/tutor/getOneTutor', {
                 tutorId: ticket.tutorId
@@ -36,6 +42,16 @@ export default function ChatModalStudent({ onClickClose, ticket, setTickets, upd
         getOneTutor();
     }, [])
 
+    useEffect(() => {
+        socket.on(`ROOM:NEW_MESSAGE_STUDENT`, ({ message }) => {
+            setMessages(prevMessages => ([...prevMessages, message]))
+        })
+    }, [socket])
+
+    useEffect(() => {
+        messageList.current.scrollTo(0, 9999999999);
+    }, [messages])
+
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
@@ -45,6 +61,12 @@ export default function ChatModalStudent({ onClickClose, ticket, setTickets, upd
             ticketId: ticket.id,
         }).then(response => {
             setMessages(prevMessages => ([...prevMessages, response.data.message]))
+
+            socket.emit('ROOM:MESSAGE_STUDENT', {
+                message: response.data.message,
+                ticketId: ticket.id,
+            })
+
             setTextMessage('');
         })
     }
@@ -52,14 +74,14 @@ export default function ChatModalStudent({ onClickClose, ticket, setTickets, upd
     return ReactDOM.createPortal(
         <div className="bg-wrapper">
             <section className="chat-container">
-                <img className="close-img" src="../../../../../public/closeImage.png" width='50' onClick={onClickClose} />
+                <img className="close-img" src="../../../../../public/closeImage.png" width='50' onClick={() => { socket.emit('ROOM:LEAVE', { ticketId: ticket.id }); onClickClose() }} />
                 {ticket.status === 'Решено' && <div className="status-color decided" />}
                 {ticket.status === 'Решается' && <div className="status-color resolve" />}
 
                 <div className="chat-wrapper">
 
 
-                    <div className="chat">
+                    <div className="chat" ref={messageList}>
                         <div className="message theme">
                             <h4 className="name">Вы</h4>
                             <div className="description-container">

@@ -1,29 +1,24 @@
 import ReactDOM from 'react-dom';
 import './ChatModalTutor.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import socket from '../../../../app/socket';
+
 
 
 export default function ChatModalTutor({ onClickClose, ticket, student }) {
     const [textMessage, setTextMessage] = useState('');
     const tutor = jwtDecode(localStorage.getItem('token'));
     const [messages, setMessages] = useState([]);
+    const messageList = useRef(null);
 
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-
-        await axios.post('http://localhost:5000/api/message/create', {
-            description: textMessage,
-            role: tutor.role,
-            ticketId: ticket.id,
-        }).then(response => {
-            setMessages(prevMessages => ([...prevMessages, response.data.message]));
-            setTextMessage('');
-        })
-    }
 
     useEffect(() => {
+        socket.emit('ROOM:JOIN', {
+            ticketId: ticket.id
+        })
+
         const getAllMessages = async () => {
             await axios.post('http://localhost:5000/api/message/getAll', {
                 ticketId: ticket.id
@@ -38,16 +33,45 @@ export default function ChatModalTutor({ onClickClose, ticket, student }) {
     }, [])
 
 
+    useEffect(() => {
+        socket.on(`ROOM:NEW_MESSAGE_TUTOR`, ({ message }) => {
+            setMessages(prevMessages => ([...prevMessages, message]))
+        })
+    }, [socket])
+
+    useEffect(() => {
+        messageList.current.scrollTo(0, 99999999999);
+    }, [messages])
+
+
+    const handleSubmit = async (evt) => {
+        evt.preventDefault();
+
+        await axios.post('http://localhost:5000/api/message/create', {
+            description: textMessage,
+            role: tutor.role,
+            ticketId: ticket.id,
+        }).then(response => {
+            setMessages(prevMessages => ([...prevMessages, response.data.message]))
+
+            socket.emit('ROOM:MESSAGE_TUTOR', {
+                message: response.data.message,
+                ticketId: ticket.id,
+            })
+
+            setTextMessage('');
+        })
+    }
 
     return ReactDOM.createPortal(
         <div className="bg-wrapper">
             <section className='chat-container-t'>
-                <img className="close-img" src="../../../../../public/closeImage.png" width='50' onClick={onClickClose} />
+                <img className="close-img" src="../../../../../public/closeImage.png" width='50' onClick={() => { socket.emit('ROOM:LEAVE', { ticketId: ticket.id }); onClickClose() }} />
                 <div className="status-color resolve" />
                 <div className="chat-wrapper">
 
 
-                    <div className="chat">
+                    <div className="chat" ref={messageList}>
                         <div className="message theme">
                             <h4 className="name">{student.lastname} {student.firstname} {student.patronymic}</h4>
                             <div className="description-container">

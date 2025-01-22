@@ -35,14 +35,22 @@ export default function NotificationsSectionStudent() {
     return (
         <main className='notifications'>
 
-            {isAsk && <AskModal onClickClose={closeModalAsk} setTickets={ticket => (setTickets([...tickets, ticket]))} student={student} />}
+            {isAsk && <AskModal
+                onClickClose={closeModalAsk}
+                setTickets={ticket => (setTickets([...tickets, ticket]))}
+                student={student}
+            />}
 
             <section className='block-ad'>
                 <AdList />
             </section>
 
             <section className='block-requests'>
-                <TicketsListStudent tickets={tickets} setTickets={(ticketId) => setTickets(tickets.filter(t => t.id !== ticketId))} updateTicket={(newTicket) => setTickets(prevTickets => [...prevTickets, newTicket])} />
+                <TicketsListStudent
+                    tickets={tickets}
+                    setTickets={(ticketId) => setTickets(tickets.filter(t => t.id !== ticketId))}
+                    updateTicket={(newTicket) => setTickets(prevTickets => [...prevTickets, newTicket])}
+                />
 
                 <div className='btn-wrapper'>
                     <button type='button' className='btn-question' onClick={openModalAsk}>Спросить</button>
