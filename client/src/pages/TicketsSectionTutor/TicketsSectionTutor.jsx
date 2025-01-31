@@ -5,6 +5,7 @@ import ChatsListDecided from '../../widgets/ChatsListInTickets/ChatsListDecided/
 import TicketsList from '../../widgets/TicketsList/TicketsList';
 import { fetchTickets } from '../../shared/api/ticketAPI';
 import { jwtDecode } from 'jwt-decode';
+import socket from '../../app/socket';
 
 export default function TicketsSectionTutor() {
     const [statusChatList, setStatusChatList] = useState('resolve')
@@ -45,6 +46,12 @@ export default function TicketsSectionTutor() {
         getTicketsResolve();
         getTicketsDecided();
     }, [])
+
+    useEffect(() => {
+        socket.on('TICKET:RECEIVE', ({ ticket }) => {
+            setTicketsExpected(prevTicketsExpected => ([...prevTicketsExpected, ticket]))
+        })
+    }, [socket])
 
 
     return (

@@ -34,8 +34,10 @@ export default function ChatModalTutor({ onClickClose, ticket, student }) {
 
 
     useEffect(() => {
-        socket.on(`ROOM:NEW_MESSAGE_TUTOR`, ({ message }) => {
-            setMessages(prevMessages => ([...prevMessages, message]))
+        socket.on(`ROOM:NEW_MESSAGE_TUTOR`, ({ message, tutorId }) => {
+            if (tutor.id === tutorId) {
+                setMessages(prevMessages => ([...prevMessages, message]))
+            }
         })
     }, [socket])
 
@@ -57,6 +59,7 @@ export default function ChatModalTutor({ onClickClose, ticket, student }) {
             socket.emit('ROOM:MESSAGE_TUTOR', {
                 message: response.data.message,
                 ticketId: ticket.id,
+                studentId: student.id
             })
 
             setTextMessage('');
@@ -69,7 +72,6 @@ export default function ChatModalTutor({ onClickClose, ticket, student }) {
                 <img className="close-img" src="../../../../../public/closeImage.png" width='50' onClick={() => { socket.emit('ROOM:LEAVE', { ticketId: ticket.id }); onClickClose() }} />
                 <div className="status-color resolve" />
                 <div className="chat-wrapper">
-
 
                     <div className="chat" ref={messageList}>
                         <div className="message theme">
@@ -102,27 +104,6 @@ export default function ChatModalTutor({ onClickClose, ticket, student }) {
                                     </>
                                 )
                             })}
-
-                            {/* <li className="message tutor">
-                                <h4 className="name">Тьютор</h4>
-                                <div className="description-container">
-                                    <p className="description">Мы работаем над решением вашей проблемы</p>
-                                </div>
-                            </li>
-
-                            <li className="message student">
-                                <h4>Иванов Иван Николаевич</h4>
-                                <div className="description-container">
-                                    <p className="description">Ответ студента</p>
-                                </div>
-                            </li>
-
-                            <li className="message tutor">
-                                <h4 className="name">Тьютор</h4>
-                                <div className="description-container">
-                                    <p className="description">Мы работаем над решением вашей проблемы</p>
-                                </div>
-                            </li> */}
 
                         </ul>
                     </div>

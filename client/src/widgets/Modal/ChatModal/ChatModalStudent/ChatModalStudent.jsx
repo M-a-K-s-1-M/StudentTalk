@@ -43,8 +43,10 @@ export default function ChatModalStudent({ onClickClose, ticket, setTickets, upd
     }, [])
 
     useEffect(() => {
-        socket.on(`ROOM:NEW_MESSAGE_STUDENT`, ({ message }) => {
-            setMessages(prevMessages => ([...prevMessages, message]))
+        socket.on(`ROOM:NEW_MESSAGE_STUDENT`, ({ message, studentId }) => {
+            if (student.id === studentId) {
+                setMessages(prevMessages => ([...prevMessages, message]))
+            }
         })
     }, [socket])
 
@@ -65,6 +67,7 @@ export default function ChatModalStudent({ onClickClose, ticket, setTickets, upd
             socket.emit('ROOM:MESSAGE_STUDENT', {
                 message: response.data.message,
                 ticketId: ticket.id,
+                tutorId: tutor.id,
             })
 
             setTextMessage('');

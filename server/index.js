@@ -14,6 +14,9 @@ const app = express();
 const server = require('http').Server(app);
 
 const io = require('socket.io')(server, {
+    reconnection: false,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 1000,
     cors: {
         origin: '*',
         methods: ['GET', 'POST', 'PUT', 'DELETE']
@@ -37,6 +40,8 @@ app.use('/api', router);
 io.on('connection', (socket) => {
     console.log(`${socket.id} user connected`)
 
+    // Chat
+
     socket.on('ROOM:JOIN', ({ ticketId }) => {
         socket.join(ticketId);
         console.log('userId: ', socket.id, ' connect, ticketId: ', ticketId);
@@ -44,12 +49,13 @@ io.on('connection', (socket) => {
         // socket.to(ticketId).broadcast.emit('название запроса', data)
     })
 
-    socket.on('ROOM:MESSAGE_TUTOR', ({ message, ticketId }) => {
-        socket.broadcast.to(ticketId).emit('ROOM:NEW_MESSAGE_STUDENT', { message });
+
+    socket.on('ROOM:MESSAGE_TUTOR', ({ message, ticketId, studentId }) => {
+        io.to(ticketId).emit('ROOM:NEW_MESSAGE_STUDENT', { message, studentId });
     })
 
-    socket.on('ROOM:MESSAGE_STUDENT', ({ message, ticketId }) => {
-        socket.broadcast.to(ticketId).emit('ROOM:NEW_MESSAGE_TUTOR', { message });
+    socket.on('ROOM:MESSAGE_STUDENT', ({ message, ticketId, tutorId }) => {
+        io.to(ticketId).emit('ROOM:NEW_MESSAGE_TUTOR', { message, tutorId });
     })
 
 
@@ -59,8 +65,17 @@ io.on('connection', (socket) => {
     })
 
 
+    //Ticket
+
+    socket.on('TICKET:CREATE', ({ ticket }) => {
+        console.log(`ticket: ${ticket}`);
+        io.emit('TICKET:RECEIVE', { ticket });
+    })
+
+
     socket.on('disconnect', () => {
-        console.log(`${socket.id} user disconnect`)
+        // socket.removeAllListeners();
+        console.log(`${socket.id} user disconnect`);
     })
 })
 

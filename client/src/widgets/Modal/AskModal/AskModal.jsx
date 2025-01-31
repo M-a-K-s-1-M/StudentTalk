@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './AskModal.scss';
 import ReactDOM from 'react-dom';
 import { createTicket } from '../../../shared/api/ticketAPI';
+import socket from '../../../app/socket';
 
 export default function AskModal({ onClickClose, isModalChatOpen, setTickets, student }) {
     const [themeText, setThemeText] = useState('');
@@ -14,6 +15,9 @@ export default function AskModal({ onClickClose, isModalChatOpen, setTickets, st
         const description = descriptionText;
         const studentId = student.id;
         const ticket = await createTicket(title, description, studentId);
+        socket.emit('TICKET:CREATE', {
+            ticket: ticket
+        })
         setTickets(ticket);
     }
 
